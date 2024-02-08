@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-</head>
-<body>
-  <h1> This is Home Page</h1>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" >
+
+<body layout:fragment="body">
+    <h3 class="text-center">This is our Home Page</h3>
 </body>
 </html>
