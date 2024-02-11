@@ -3,6 +3,16 @@ package learn.osman.stackoverflowclone.entity;
 import java.util.List;
 
 public class Question {
+    private Long questionId;
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
     private String questionTitle;
 
     private String questionDetails;
@@ -41,7 +51,8 @@ public class Question {
         this.tagList = tagList;
     }
 
-    public Question(String questionTitle, String questionDetails, User user, List<Tag> tagList) {
+    public Question(Long questionId, String questionTitle, String questionDetails, User user, List<Tag> tagList) {
+        this.questionId = questionId;
         this.questionTitle = questionTitle;
         this.questionDetails = questionDetails;
         this.user = user;

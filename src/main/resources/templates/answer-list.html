@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" >
+
+<body layout:fragment="body">
+  <div class="row">
+
+    <div class="col mt-3">
+      <div class="card h-75 w-100 border-warning">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${question.questionTitle}"></h5>
+          <div class="my-2 rounded-4 d-flex flex-row">
+            <p class="me-2">2011 votes</p>
+            <p class="me-2 text-success">Asked 3 years, 8 months ago</p>
+            <p class="me-2 text-warning">3.3m views</p>
+          </div>
+          <p class="card-text" th:text="${question.questionDetails}"></p>
+          <p class="card-text">
+            <span class="btn-secondary me-2 p-2 text-white bg-info rounded" th:each="tag: ${question.tagList}" th:utext="${tag.tagName}"></span>
+          </p>
+        </div>
+        <div class="card-footer border-secondary">
+          <small class="text-muted" th:text="${question.user.displayName}"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+<div>
+  <!-- Assuming 'list' is the list you want to get the length of -->
+  <span th:text="${answers.size()}"></span><span class="ms-2"> Answers</span>
+
+  <div class="row" th:each="answer: ${answers}">
+
+    <div class="col mt-3">
+      <div class="card h-75 w-100 border-warning">
+        <div class="card-body">
+          <p class="card-text" th:text="${answer.answerDetail}"></p>
+
+        </div>
+        <div class="card-footer border-secondary">
+          <small class="text-muted me-2">Share</small>
+          <small class="text-muted me-2">Improve this answer</small>
+          <small class="text-muted">Follow</small>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
