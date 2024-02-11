@@ -9,18 +9,18 @@ public class User {
     private String password;
     private String aboutMe;
     private String location;
-    private LocalDateTime createdDate;
+//    private LocalDateTime createdDate;
     public User(){
 
     }
-    public User(Long userId, String displayName, String emailAddress, String password, String aboutMe, String location, LocalDateTime createdDate) {
+    public User(Long userId, String displayName, String emailAddress, String password, String aboutMe, String location) {
         this.userId = userId;
         this.displayName = displayName;
         this.emailAddress = emailAddress;
         this.password = password;
         this.aboutMe = aboutMe;
         this.location = location;
-        this.createdDate = createdDate;
+//        this.createdDate = createdDate;
     }
 
     public Long getUserId() {
@@ -71,11 +71,11 @@ public class User {
         this.location = location;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
+//    public LocalDateTime getCreatedDate() {
+//        return createdDate;
+//    }
+//
+//    public void setCreatedDate(LocalDateTime createdDate) {
+//        this.createdDate = createdDate;
+//    }
 }
