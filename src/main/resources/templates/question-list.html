@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" >
+
+<body layout:fragment="body">
+<div class="my-3 d-flex justify-content-between">
+    <h3 class="text-center">All Questions</h3>
+    <button class="btn btn-lg btn-outline-success text-white bg-primary rounded">Ask Question</button>
+</div>
+
+<div>
+<div class="row" th:each="question: ${questions}">
+        <div class="col-2 mt-3 rounded-4 border border-success d-flex flex-column justify-content-center align-items-center">
+            <p>2011 votes</p>
+            <p class="text-success">37 answers</p>
+            <p class="text-warning">3.3m views</p>
+        </div>
+        <div class="col-10 mt-3">
+            <div class="card h-75 w-100 border-warning">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${question.questionTitle}"></h5>
+                    <p class="card-text" th:text="${question.questionDetails}"></p>
+                    <p class="card-text">
+                        <span class="btn-secondary me-2 p-2 text-white bg-info rounded" th:each="tag: ${question.tagList}" th:text="${tag.tagName}"></span>
+                    </p>
+                </div>
+                <div class="card-footer border-secondary">
+                    <small class="text-muted" th:text="${question.user.displayName}"></small>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
