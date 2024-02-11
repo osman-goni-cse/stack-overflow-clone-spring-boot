@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" >
+
+<body layout:fragment="body">
+<div class="my-3 d-flex justify-content-between">
+  <div>
+    <h3>Tags</h3>
+    <p>
+      A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.
+
+    </p>
+  </div>
+<!--  <form class="d-flex" role="search">-->
+<!--    <input class="form-control me-2" type="search" placeholder="Filter by tag name" aria-label="Search">-->
+<!--    <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--  </form>-->
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col" th:each="tag: ${tags}">
+    <div class="card h-100">
+<!--      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
+      <div class="card-body">
+        <h5 class="card-title d-inline-block bg-primary text-white p-2 rounded" th:text="${tag.tagName}"></h5>
+
+        <p class="card-text" th:text="${tag.tagDetails}"></p>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <small class="text-muted"> 2524796 questions
+          </small>
+        <small class="text-muted">
+          156 asked today, 1581 this week
+        </small>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
