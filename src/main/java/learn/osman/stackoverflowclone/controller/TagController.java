@@ -37,8 +37,12 @@ public class TagController {
         model.addAttribute("tags", tagList);
         return "tag-list";
     }
-//    @GetMapping("/create-tag-form")
-//    public String showTagForm() {
-//        return "tag-list";
-//    }
+
+    @PostMapping("/update-tag")
+    public String updateTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
+        tagService.updateTag(tagObj);
+        List<Tag> tagList = tagService.findAllTags();
+        model.addAttribute("tags", tagList);
+        return "tag-list";
+    }
 }

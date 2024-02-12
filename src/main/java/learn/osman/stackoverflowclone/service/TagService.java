@@ -23,4 +23,14 @@ public class TagService {
     public void addNewTag(Tag tagObj) {
         tagList.add(tagObj);
     }
+
+    public void updateTag(Tag updatedTag) {
+        int counter = 0;
+        for (Tag tag: tagList) {
+            if (tag.getTagId().equals(updatedTag.getTagId())) {
+                tagList.set(counter, updatedTag);
+            }
+            counter++;
+        }
+    }
 }
