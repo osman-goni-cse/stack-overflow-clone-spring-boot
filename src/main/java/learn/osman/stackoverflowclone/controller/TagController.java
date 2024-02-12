@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -21,9 +23,22 @@ public class TagController {
     }
 
     @GetMapping("/get-all-tag")
-    public String showAllTags(Model model) {
+    public String showAllTags(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         List<Tag> tagList = tagService.findAllTags();
         model.addAttribute("tags", tagList);
         return "tag-list";
     }
+
+    @PostMapping("/create-tag")
+    public String createTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
+        tagService.addNewTag(tagObj);
+
+        List<Tag> tagList = tagService.findAllTags();
+        model.addAttribute("tags", tagList);
+        return "tag-list";
+    }
+//    @GetMapping("/create-tag-form")
+//    public String showTagForm() {
+//        return "tag-list";
+//    }
 }

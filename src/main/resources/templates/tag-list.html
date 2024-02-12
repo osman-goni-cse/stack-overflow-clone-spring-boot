@@ -4,18 +4,57 @@
       layout:decorate="~{layout}" >
 
 <body layout:fragment="body">
-<div class="my-3 d-flex justify-content-between">
-  <div>
+<div class="my-3">
+  <div class="d-flex justify-content-between">
     <h3>Tags</h3>
+      <div>
+          <!-- Button trigger modal -->
+<!--          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--              Add Tag-->
+<!--          </button>-->
+          <a th:href="@{/tags/create-tag-form}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Add Tag
+          </a>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Create New Tag</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form th:action="@{/tags/create-tag}" th:object="${tagObj}" method="POST">
+                              <div class="mb-3">
+                                  <label for="tagId" class="form-label">Tag Id</label>
+                                  <input type="text" class="form-control" id="tagId" th:field="*{tagId}">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="tagName" class="form-label">Tag Name</label>
+                                  <input type="text" class="form-control" id="tagName" th:field="*{tagName}">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="tagDetails" class="form-label">Tag Details</label>
+                                  <input type="text" class="form-control" id="tagDetails" th:field="*{tagDetails}">
+                              </div>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Create</button>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
     <p>
       A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.
-
     </p>
-  </div>
-<!--  <form class="d-flex" role="search">-->
-<!--    <input class="form-control me-2" type="search" placeholder="Filter by tag name" aria-label="Search">-->
-<!--    <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--  </form>-->
+
 </div>
 
 
@@ -24,8 +63,12 @@
     <div class="card h-100">
 <!--      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
       <div class="card-body">
-        <h5 class="card-title d-inline-block bg-primary text-white p-2 rounded" th:text="${tag.tagName}"></h5>
-
+        <div class="d-flex justify-content-between">
+            <h5 class="card-title d-inline-block bg-primary text-white p-2 rounded" th:text="${tag.tagName}"></h5>
+            <button class="btn btn-sm btn-outline btn-warning rounded">
+                <i class="bi bi-pencil-fill" th:text="${tag.tagId}"></i>
+            </button>
+        </div>
         <p class="card-text" th:text="${tag.tagDetails}"></p>
       </div>
       <div class="card-footer d-flex justify-content-between">
