@@ -29,8 +29,31 @@ public class TagController {
         return "tag-list";
     }
 
+    @GetMapping("/create-tag")
+    public String showTagForm(@ModelAttribute("tagObj") Tag tagObj) {
+        return "create-tag-form";
+    }
+
     @PostMapping("/create-tag")
     public String createTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
+        boolean isTagObjectBlank = false;
+        if (tagObj.getTagId() == null) {
+            isTagObjectBlank = true;
+            model.addAttribute("tagIdError", "Tag ID is required");
+        }
+        if (tagObj.getTagName() == null || tagObj.getTagName().trim().isEmpty()) {
+            isTagObjectBlank = true;
+            model.addAttribute("tagNameError", "Tag Name is required");
+        }
+        if (tagObj.getTagDetails().trim().isEmpty()) {
+            isTagObjectBlank = true;
+            model.addAttribute("tagDetailsError", "Tag Details is required");
+        }
+
+        if(isTagObjectBlank) {
+            System.out.println("Tag Obejct is null");
+            return "create-tag-form";
+        }
         tagService.addNewTag(tagObj);
 
         List<Tag> tagList = tagService.findAllTags();

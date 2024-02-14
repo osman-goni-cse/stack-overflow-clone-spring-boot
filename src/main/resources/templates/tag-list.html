@@ -8,10 +8,10 @@
   <div class="d-flex justify-content-between">
     <h3>Tags</h3>
       <div>
-          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="clearForm()">
-              Add Tag
-          </a>
-
+<!--          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="clearForm()">-->
+<!--              Add Tag-->
+<!--          </a>-->
+            <a th:href="@{/tags/create-tag}" class="btn btn-primary">Add Tag</a>
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -25,14 +25,17 @@
                               <div class="mb-3">
                                   <label for="tagId" class="form-label">Tag Id</label>
                                   <input type="text" class="form-control" id="tagId" th:field="*{tagId}">
+                                  <span th:if="${#fields.hasErrors('tagId')}" th:text="${#fields.errors('tagId')}"></span>
                               </div>
                               <div class="mb-3">
                                   <label for="tagName" class="form-label">Tag Name</label>
                                   <input type="text" class="form-control" id="tagName" th:field="*{tagName}">
+                                  <span th:if="${tagNameError}" th:text="${tagNameError}"></span>
                               </div>
                               <div class="mb-3">
                                   <label for="tagDetails" class="form-label">Tag Details</label>
                                   <input type="text" class="form-control" id="tagDetails" th:field="*{tagDetails}">
+                                  <span th:if="${tagDetailsError}" th:text="${tagDetailsError}"></span>
                               </div>
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                               <input type="submit" class="btn btn-primary" value="Create">

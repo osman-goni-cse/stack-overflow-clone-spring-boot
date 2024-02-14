@@ -33,4 +33,8 @@ public class TagService {
             counter++;
         }
     }
+
+//    public boolean isAllFieldValid() {
+//
+//    }
 }
