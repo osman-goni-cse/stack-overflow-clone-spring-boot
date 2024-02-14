@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -31,6 +32,25 @@ public class TagService {
                 tagList.set(counter, updatedTag);
             }
             counter++;
+        }
+    }
+
+    public void deleteTag(Long tagId) {
+//        This code gives ConcurrentModificationError
+//        int counter = 0;
+//        for(Tag currentTag: tagList) {
+//            if (currentTag.getTagId().equals(tagId)) {
+//                tagList.remove(counter);
+//            }
+//            counter++;
+//        }
+
+        Iterator<Tag> iterator = tagList.iterator();
+        while (iterator.hasNext()) {
+            Tag tag = iterator.next();
+            if (tag.getTagId().equals(tagId)) {
+                iterator.remove();
+            }
         }
     }
 

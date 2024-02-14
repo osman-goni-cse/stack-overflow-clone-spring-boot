@@ -5,10 +5,7 @@ import learn.osman.stackoverflowclone.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,7 +48,7 @@ public class TagController {
         }
 
         if(isTagObjectBlank) {
-            System.out.println("Tag Obejct is null");
+//            System.out.println("Tag Obejct is null");
             return "create-tag-form";
         }
         tagService.addNewTag(tagObj);
@@ -64,6 +61,14 @@ public class TagController {
     @PostMapping("/update-tag")
     public String updateTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         tagService.updateTag(tagObj);
+        List<Tag> tagList = tagService.findAllTags();
+        model.addAttribute("tags", tagList);
+        return "tag-list";
+    }
+    @GetMapping("/delete-tag/{tagId}")
+    public String deleteTag(@PathVariable("tagId") Long tagId, @ModelAttribute("tagObj") Tag tagObj, Model model) {
+        System.out.println("invoked controller");
+        tagService.deleteTag(tagId);
         List<Tag> tagList = tagService.findAllTags();
         model.addAttribute("tags", tagList);
         return "tag-list";
