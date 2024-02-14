@@ -1,121 +1,134 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}" >
+      layout:decorate="~{layout}">
 
 <body layout:fragment="body">
 <div class="my-3">
-  <div class="d-flex justify-content-between">
-    <h3>Tags</h3>
-      <div>
-<!--          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="clearForm()">-->
-<!--              Add Tag-->
-<!--          </a>-->
+    <div class="d-flex justify-content-between">
+        <h3>Tags</h3>
+        <div>
+            <!--          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="clearForm()">-->
+            <!--              Add Tag-->
+            <!--          </a>-->
             <a th:href="@{/tags/create-tag}" class="btn btn-primary">Add Tag</a>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Create New Tag</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          <form th:action="@{/tags/create-tag}" th:object="${tagObj}" method="POST">
-                              <div class="mb-3">
-                                  <label for="tagId" class="form-label">Tag Id</label>
-                                  <input type="text" class="form-control" id="tagId" th:field="*{tagId}">
-                                  <span th:if="${#fields.hasErrors('tagId')}" th:text="${#fields.errors('tagId')}"></span>
-                              </div>
-                              <div class="mb-3">
-                                  <label for="tagName" class="form-label">Tag Name</label>
-                                  <input type="text" class="form-control" id="tagName" th:field="*{tagName}">
-                                  <span th:if="${tagNameError}" th:text="${tagNameError}"></span>
-                              </div>
-                              <div class="mb-3">
-                                  <label for="tagDetails" class="form-label">Tag Details</label>
-                                  <input type="text" class="form-control" id="tagDetails" th:field="*{tagDetails}">
-                                  <span th:if="${tagDetailsError}" th:text="${tagDetailsError}"></span>
-                              </div>
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                              <input type="submit" class="btn btn-primary" value="Create">
-                          </form>
-                      </div>
-                      <div class="modal-footer">
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Create New Tag</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/tags/create-tag}" th:object="${tagObj}" method="POST">
+                                <div class="mb-3">
+                                    <label for="tagId" class="form-label">Tag Id</label>
+                                    <input type="text" class="form-control" id="tagId" th:field="*{tagId}">
+                                    <span class="error_field" th:if="${#fields.hasErrors('tagId')}"
+                                          th:text="${#fields.errors('tagId')}"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tagName" class="form-label">Tag Name</label>
+                                    <input type="text" class="form-control" id="tagName" th:field="*{tagName}">
+                                    <span class="error_field" th:if="${tagNameError}" th:text="${tagNameError}"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tagDetails" class="form-label">Tag Details</label>
+                                    <input type="text" class="form-control" id="tagDetails" th:field="*{tagDetails}">
+                                    <span class="error_field" th:if="${tagDetailsError}"
+                                          th:text="${tagDetailsError}"></span>
+                                </div>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-primary" value="Create">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
 
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  </div>
+    </div>
     <p>
-      A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.
+        A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags
+        makes it easier for others to find and answer your question.
     </p>
 
 </div>
 
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col" th:each="tag: ${tags}">
-    <div class="card h-100">
-<!--      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <h5 class="card-title d-inline-block bg-primary text-white p-2 rounded" th:text="${tag.tagName}"></h5>
-            <div>
+    <div class="col" th:each="tag: ${tags}">
+        <div class="card h-100">
+            <!--      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title d-inline-block bg-primary text-white p-2 rounded"
+                        th:text="${tag.tagName}"></h5>
+                    <div>
 
-                <a class="btn btn-warning" data-bs-toggle="modal" th:attr="data-bs-target='#editTagModal'+${tag.tagId}">
-                    <i class="bi bi-pencil-fill"></i>
-                </a>
+                        <a class="btn btn-warning" data-bs-toggle="modal"
+                           th:attr="data-bs-target='#editTagModal'+${tag.tagId}">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
 
-                <!-- Modal -->
-                <div class="modal fade" th:id="'editTagModal'+${tag.tagId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Update Tag</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form th:action="@{/tags/update-tag}" th:object="${tagObj}" method="post">
-                                    <div class="mb-3">
-<!--                                        <label for="tagId" class="form-label">Tag Id</label>-->
-                                        <input type="hidden" class="form-control" id="tagId" name="tagId" th:value="${tag.tagId}">
+                        <!-- Modal -->
+                        <div class="modal fade" th:id="'editTagModal'+${tag.tagId}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Update Tag</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="tagName" class="form-label">Tag Name</label>
-                                        <input type="text" class="form-control" id="tagName" name="tagName" th:value="${tag.tagName}">
+                                    <div class="modal-body">
+                                        <form th:action="@{/tags/update-tag}" th:object="${tagObj}" method="post">
+                                            <div class="mb-3">
+                                                <!--                                        <label for="tagId" class="form-label">Tag Id</label>-->
+                                                <input type="hidden" class="form-control" id="tagId" name="tagId"
+                                                       th:value="${tag.tagId}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="tagName" class="form-label">Tag Name</label>
+                                                <input type="text" class="form-control" id="tagName" name="tagName"
+                                                       th:value="${tag.tagName}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="tagDetails" class="form-label">Tag Details</label>
+                                                <input type="text" class="form-control" id="tagDetails"
+                                                       name="tagDetails" th:value="${tag.tagDetails}">
+                                            </div>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="tagDetails" class="form-label">Tag Details</label>
-                                        <input type="text" class="form-control" id="tagDetails" name="tagDetails" th:value="${tag.tagDetails}">
-                                    </div>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
+                                    <div class="modal-footer">
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <p class="card-text" th:text="${tag.tagDetails}"></p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <small class="text-muted"> 2524796 questions
+                </small>
+                <small class="text-muted">
+                    156 asked today, 1581 this week
+                </small>
             </div>
         </div>
-        <p class="card-text" th:text="${tag.tagDetails}"></p>
-      </div>
-      <div class="card-footer d-flex justify-content-between">
-        <small class="text-muted"> 2524796 questions
-          </small>
-        <small class="text-muted">
-          156 asked today, 1581 this week
-        </small>
-      </div>
-    </div>
 
-  </div>
+    </div>
 
 </div>
 </body>
