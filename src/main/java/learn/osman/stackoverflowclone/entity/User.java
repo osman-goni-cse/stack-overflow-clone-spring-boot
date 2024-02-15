@@ -1,25 +1,24 @@
 package learn.osman.stackoverflowclone.entity;
 
-import java.time.LocalDateTime;
 
 public class User {
     private Long userId;
     private String displayName;
     private String emailAddress;
     private String password;
-    private String aboutMe;
-    private String location;
+//    private String aboutMe;
+//    private String location;
 //    private LocalDateTime createdDate;
     public User(){
 
     }
-    public User(Long userId, String displayName, String emailAddress, String password, String aboutMe, String location) {
+    public User(Long userId, String displayName, String emailAddress, String password) {
         this.userId = userId;
         this.displayName = displayName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.aboutMe = aboutMe;
-        this.location = location;
+//        this.aboutMe = aboutMe;
+//        this.location = location;
 //        this.createdDate = createdDate;
     }
 
@@ -55,21 +54,21 @@ public class User {
         this.password = password;
     }
 
-    public String getAboutMe() {
-        return aboutMe;
-    }
-
-    public void setAboutMe(String aboutMe) {
-        this.aboutMe = aboutMe;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+//    public String getAboutMe() {
+//        return aboutMe;
+//    }
+//
+//    public void setAboutMe(String aboutMe) {
+//        this.aboutMe = aboutMe;
+//    }
+//
+//    public String getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(String location) {
+//        this.location = location;
+//    }
 
 //    public LocalDateTime getCreatedDate() {
 //        return createdDate;

@@ -67,7 +67,7 @@ public class TagController {
     }
     @GetMapping("/delete-tag/{tagId}")
     public String deleteTag(@PathVariable("tagId") Long tagId, @ModelAttribute("tagObj") Tag tagObj, Model model) {
-        System.out.println("invoked controller");
+//        System.out.println("invoked controller");
         tagService.deleteTag(tagId);
         List<Tag> tagList = tagService.findAllTags();
         model.addAttribute("tags", tagList);

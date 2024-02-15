@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,9 @@ public class UserController {
         List<User> users = userService.getAllUserList();
         model.addAttribute("users", users);
         return "user-list";
+    }
+    @GetMapping("/create-new-user")
+    public String createNewUser(@ModelAttribute("userObj") User user) {
+        return "register-user-form";
     }
 }
