@@ -8,21 +8,22 @@
     <div class="mb-3">
         <label for="userid" class="form-label">User Id</label>
         <input type="text" class="form-control" id="userid" th:field="*{userId}">
-<!--        <span class="error_field" th:if="${userId}" th:text="${tagIdError}"></span>-->
+        <span class="error_field" th:if="${userIdError}" th:text="${userIdError}"></span>
     </div>
     <div class="mb-3">
         <label for="displayname" class="form-label">User Name</label>
         <input type="text" class="form-control" id="displayname" th:field="*{displayName}">
-<!--        <span class="error_field" th:if="${tagNameError}" th:text="${tagNameError}"></span>-->
+        <span class="error_field" th:if="${displayNameError}" th:text="${displayNameError}"></span>
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
-        <input type="text" class="form-control" id="email" th:field="*{emailAddress}">
-<!--        <span class="error_field" th:if="${tagDetailsError}" th:text="${tagDetailsError}"></span>-->
+        <input type="email" class="form-control" id="email" th:field="*{emailAddress}">
+        <span class="error_field" th:if="${emailAddressError}" th:text="${emailAddressError}"></span>
     </div>
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" th:field="*{password}">
+        <span class="error_field" th:if="${passwordError}" th:text="${passwordError}"></span>
     </div>
     <input type="submit" class="btn btn-primary" value="Create Account">
 </form>

@@ -25,15 +25,41 @@ public class UserController {
         model.addAttribute("users", users);
         return "user-list";
     }
+
     @GetMapping("/create-new-user")
     public String showUserForm(@ModelAttribute("userObj") User user) {
         return "register-user-form";
     }
+
     @PostMapping("/create-new-user")
     public String createNewUser(@ModelAttribute("userObj") User user, Model model) {
 //        Check user is null or not
 //        add user
+        boolean isUserBlank = false;
+        if (user.getUserId() == null) {
+            isUserBlank = true;
+            model.addAttribute("userIdError", "User ID is required");
+        }
+        if (user.getDisplayName().trim().isEmpty()) {
+            isUserBlank = true;
+            model.addAttribute("displayNameError", "Display Name is required");
+        }
+        if (user.getEmailAddress().trim().isEmpty()) {
+            isUserBlank = true;
+            model.addAttribute("emailAddressError", "Email ID is required");
+        }
+        if (user.getPassword().trim().isEmpty()) {
+            isUserBlank = true;
+            model.addAttribute("passwordError", "Password is required");
+        }
+
+        if (isUserBlank) {
+            return "register-user-form";
+        }
+
         userService.registerUser(user);
+        Map<Long, User> users = userService.getAllUser();
+        model.addAttribute("users", users);
         return "user-list";
     }
 }

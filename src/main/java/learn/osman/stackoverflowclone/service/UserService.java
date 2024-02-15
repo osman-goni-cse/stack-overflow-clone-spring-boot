@@ -37,6 +37,6 @@ public class UserService {
     }
 
     public void registerUser(User user) {
-
+        users.put(user.getUserId(), user);
     }
 }
