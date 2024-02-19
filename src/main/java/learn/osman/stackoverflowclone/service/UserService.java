@@ -39,4 +39,9 @@ public class UserService {
     public void registerUser(User user) {
         users.put(user.getUserId(), user);
     }
+
+    public boolean isUserAuthenticate(User user) {
+        User user1 = users.get(user.getUserId());
+        return user1 != null && user1.getPassword().equals(user.getPassword());
+    }
 }

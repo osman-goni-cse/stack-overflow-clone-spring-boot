@@ -3,6 +3,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" >
 
+<!--<div th:replace="layout :: auth_side_panel(loggedInUser=${loggedInUser})">-->
+<!--    <div th:if="${user}">-->
+<!--        <span th:text="Hello, ${user.displayName}"></span>-->
+<!--    </div>-->
+<!--    <div th:unless="${user}">-->
+<!--        <a th:href="@{/users/login}" class="btn btn-info">Log in</a>-->
+<!--        <a th:href="@{/users/create-new-user}" class="btn btn-success">Sign up</a>-->
+<!--    </div>-->
+<!--    <div th:if="${user}">-->
+<!--        <span th:text="'Hello, ' + ${user.displayName}"></span>-->
+<!--    </div>-->
+<!--    <div th:unless="${user}">-->
+<!--        <a th:href="@{/users/login}" class="btn btn-info">Log in</a>-->
+<!--        <a th:href="@{/users/create-new-user}" class="btn btn-success">Sign up</a>-->
+<!--    </div>-->
+
+<!--</div>-->
+
 <body layout:fragment="body">
     <div class="container-fluid p-0">
         <img src="https://img.freepik.com/free-vector/businessmans-hand-holding-question-mark-person-asking-answer-help-support-flat-vector-illustration-faq-interrogation-difficulty-concept-banner-website-design-landing-web-page_74855-24358.jpg" alt="Banner Image" class="img-fluid">

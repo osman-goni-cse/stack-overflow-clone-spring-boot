@@ -1,5 +1,6 @@
 package learn.osman.stackoverflowclone.controller;
 
+import jakarta.servlet.http.HttpSession;
 import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,37 @@ public class UserController {
         Map<Long, User> users = userService.getAllUser();
         model.addAttribute("users", users);
         return "user-list";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(@ModelAttribute("userObj") User user) {
+        return "login-form";
+    }
+
+    @PostMapping("/login")
+    public String userLogin(@ModelAttribute("userObj") User user, Model model, HttpSession session) {
+        boolean isUserBlank = false;
+        if (user.getUserId() == null) {
+            isUserBlank = true;
+            model.addAttribute("userIdError", "User Id is required");
+        }
+        if (user.getPassword().trim().isEmpty()) {
+            isUserBlank = true;
+            model.addAttribute("passwordError", "Password is required");
+        }
+
+        if (isUserBlank) {
+            return "login-form";
+        }
+        if (userService.isUserAuthenticate(user)) {
+            User loggedInUser = userService.getUser(user.getUserId());
+            model.addAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("loggedInUser", loggedInUser);
+            return "redirect:/";
+        }
+        else {
+            model.addAttribute("validationError", "Your ID/Password is incorrect");
+            return "login-form";
+        }
     }
 }

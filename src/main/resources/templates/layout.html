@@ -47,15 +47,26 @@
                     <a class="nav-link" aria-disabled="true">About</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+<!--            <form class="d-flex" role="search">-->
+<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--            </form>-->
 
-            <div>
-                <button class="btn btn-info">Log in</button>
-                <a th:href="@{/users/create-new-user}" class="btn btn-success">Sign up</a>
+<!--            <div layout:fragment="auth_side_panel">-->
+
+<!--            </div>-->
+            <!-- fragments/auth.html -->
+            <div >
+                <div th:if="${session.loggedInUser}">
+                    <span th:text="'Hello, ' + ${session.loggedInUser.displayName}"></span>
+                    <a class="btn btn-danger">Log out</a>
+                </div>
+                <div th:unless="${session.loggedInUser}">
+                    <a th:href="@{/users/login}" class="btn btn-info">Log in</a>
+                    <a th:href="@{/users/create-new-user}" class="btn btn-success">Sign up</a>
+                </div>
             </div>
+
         </div>
     </div>
 </nav>
