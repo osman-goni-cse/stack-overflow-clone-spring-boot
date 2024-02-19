@@ -59,7 +59,7 @@
             <div >
                 <div th:if="${session.loggedInUser}">
                     <span th:text="'Hello, ' + ${session.loggedInUser.displayName}"></span>
-                    <a class="btn btn-danger">Log out</a>
+                    <a th:href="@{/users/logout}" class="btn btn-danger">Log out</a>
                 </div>
                 <div th:unless="${session.loggedInUser}">
                     <a th:href="@{/users/login}" class="btn btn-info">Log in</a>

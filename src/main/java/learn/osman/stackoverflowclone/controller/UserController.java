@@ -1,5 +1,6 @@
 package learn.osman.stackoverflowclone.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.service.UserService;
@@ -94,5 +95,14 @@ public class UserController {
             model.addAttribute("validationError", "Your ID/Password is incorrect");
             return "login-form";
         }
+    }
+
+    @GetMapping("/logout")
+    public String userLogout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/users/login";
     }
 }
