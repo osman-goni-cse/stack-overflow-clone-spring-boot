@@ -1,9 +1,13 @@
 package learn.osman.stackoverflowclone.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tag {
     private Long tagId;
     private String tagName;
     private String tagDetails;
+    private List<Question> questions;
 
     public Long getTagId() {
         return tagId;
@@ -28,11 +32,18 @@ public class Tag {
     public void setTagDetails(String tagDetails) {
         this.tagDetails = tagDetails;
     }
+    public List<Question> getQuestions() {
+        return questions;
+    }
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public Tag(Long tagId, String tagName, String tagDetails) {
         this.tagId = tagId;
         this.tagName = tagName;
         this.tagDetails = tagDetails;
+        this.questions = new ArrayList<>();
     }
 
 }
