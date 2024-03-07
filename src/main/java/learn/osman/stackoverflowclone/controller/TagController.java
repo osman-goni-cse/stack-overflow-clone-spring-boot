@@ -57,7 +57,7 @@ public class TagController {
             return "create-tag-form";
         }
         tagService.addNewTag(tagObj);
-        
+
         return "redirect:/tags/get-all-tag";
     }
 

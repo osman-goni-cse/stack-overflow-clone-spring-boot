@@ -60,9 +60,8 @@ public class UserController {
         }
 
         userService.registerUser(user);
-        Map<Long, User> users = userService.getAllUser();
-        model.addAttribute("users", users);
-        return "user-list";
+
+        return "redirect:/users/get-all-user";
     }
 
     @GetMapping("/login")
