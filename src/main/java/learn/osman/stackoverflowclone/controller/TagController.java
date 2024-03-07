@@ -57,36 +57,18 @@ public class TagController {
             return "create-tag-form";
         }
         tagService.addNewTag(tagObj);
-
-        List<Tag> tagList = tagService.findAllTags();
-        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
-
-        model.addAttribute("tags", tagList);
-        model.addAttribute("mapTag", mapTag);
-
-        return "tag-list";
+        
+        return "redirect:/tags/get-all-tag";
     }
 
     @PostMapping("/update-tag")
     public String updateTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         tagService.updateTag(tagObj);
-        List<Tag> tagList = tagService.findAllTags();
-        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
-
-        model.addAttribute("tags", tagList);
-        model.addAttribute("mapTag", mapTag);
-
-        return "tag-list";
+        return "redirect:/tags/get-all-tag";
     }
     @GetMapping("/delete-tag/{tagId}")
     public String deleteTag(@PathVariable("tagId") Long tagId, @ModelAttribute("tagObj") Tag tagObj, Model model) {
-//        System.out.println("invoked controller");
         tagService.deleteTag(tagId);
-        List<Tag> tagList = tagService.findAllTags();
-        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
-
-        model.addAttribute("tags", tagList);
-        model.addAttribute("mapTag", mapTag);
-        return "tag-list";
+        return "redirect:/tags/get-all-tag";
     }
 }
