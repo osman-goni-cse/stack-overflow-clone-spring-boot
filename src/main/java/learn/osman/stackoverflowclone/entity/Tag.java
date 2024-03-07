@@ -8,7 +8,12 @@ public class Tag {
     private String tagName;
     private String tagDetails;
     private List<Question> questions;
-
+    public Tag(Long tagId, String tagName, String tagDetails) {
+        this.tagId = tagId;
+        this.tagName = tagName;
+        this.tagDetails = tagDetails;
+        this.questions = new ArrayList<>();
+    }
     public Long getTagId() {
         return tagId;
     }
@@ -38,12 +43,4 @@ public class Tag {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-
-    public Tag(Long tagId, String tagName, String tagDetails) {
-        this.tagId = tagId;
-        this.tagName = tagName;
-        this.tagDetails = tagDetails;
-        this.questions = new ArrayList<>();
-    }
-
 }

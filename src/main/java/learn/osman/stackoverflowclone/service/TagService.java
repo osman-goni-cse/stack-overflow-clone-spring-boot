@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TagService {
@@ -114,4 +111,20 @@ public class TagService {
 //    public boolean isAllFieldValid() {
 //
 //    }
+
+    public Map<Tag, Integer> questionCountBasedOnTag() {
+
+        Map<Tag, Integer> mapTag= new HashMap<>();
+
+//        for(Tag tag: this.findAllTags()) {
+//            mapTag.put(tag, 0);
+//        }
+
+        for(Question question: questionService.getAllQuestions()) {
+            for (Tag tag: question.getTagList()) {
+                mapTag.put(tag, mapTag.getOrDefault(tag, 0) + 1);
+            }
+        }
+        return mapTag;
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/tags")
@@ -22,7 +23,11 @@ public class TagController {
     @GetMapping("/get-all-tag")
     public String showAllTags(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         List<Tag> tagList = tagService.findAllTags();
+        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
+
         model.addAttribute("tags", tagList);
+        model.addAttribute("mapTag", mapTag);
+
         return "tag-list";
     }
 
@@ -54,7 +59,11 @@ public class TagController {
         tagService.addNewTag(tagObj);
 
         List<Tag> tagList = tagService.findAllTags();
+        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
+
         model.addAttribute("tags", tagList);
+        model.addAttribute("mapTag", mapTag);
+
         return "tag-list";
     }
 
@@ -62,7 +71,11 @@ public class TagController {
     public String updateTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         tagService.updateTag(tagObj);
         List<Tag> tagList = tagService.findAllTags();
+        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
+
         model.addAttribute("tags", tagList);
+        model.addAttribute("mapTag", mapTag);
+
         return "tag-list";
     }
     @GetMapping("/delete-tag/{tagId}")
@@ -70,7 +83,10 @@ public class TagController {
 //        System.out.println("invoked controller");
         tagService.deleteTag(tagId);
         List<Tag> tagList = tagService.findAllTags();
+        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
+
         model.addAttribute("tags", tagList);
+        model.addAttribute("mapTag", mapTag);
         return "tag-list";
     }
 }
