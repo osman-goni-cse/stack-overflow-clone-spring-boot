@@ -1,11 +1,15 @@
 package learn.osman.stackoverflowclone.entity;
 
 
+import java.io.File;
+import java.nio.file.Path;
+
 public class User {
     private Long userId;
     private String displayName;
     private String emailAddress;
     private String password;
+    private Path userProfilePicPath;
 //    private String aboutMe;
 //    private String location;
 //    private LocalDateTime createdDate;
@@ -20,6 +24,7 @@ public class User {
 //        this.aboutMe = aboutMe;
 //        this.location = location;
 //        this.createdDate = createdDate;
+        this.userProfilePicPath = Path.of("osmangoni.jpg");
     }
 
     public Long getUserId() {
@@ -52,6 +57,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Path getUserProfilePicPath() {
+        return userProfilePicPath.toAbsolutePath();
+    }
+
+    public String getUserProfilePicName() {
+        return userProfilePicPath.getFileName().toString();
     }
 
 //    public String getAboutMe() {
