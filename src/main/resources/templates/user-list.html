@@ -16,9 +16,14 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" th:each="user: ${users.entrySet()}">
       <div class="card h-100">
-<!--        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
-<!--          <img th:src="@{/images/osmangoni.jpg}" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
-          <img th:src="@{/images/{picName}(picName = ${user.value.getUserProfilePicName()})}" alt="Profile image not found" style="width: 200px;height: 200px;">
+<!--          <img th:src="@{/images/Joardar.png}" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">-->
+<!--          <img th:src="@{/images/{picName}(picName = ${user.value.getUserProfilePictureName()})}" alt="Profile image not found" style="width: 200px;height: 200px;">-->
+          <div th:if="${user.value.userProfilePicture}">
+              <img th:src="@{'/images/' + ${user.value.userProfilePicture.originalFilename}}" alt="Profile image not found" style="width: 200px; height: 200px;">
+          </div>
+          <div th:unless="${user.value.userProfilePicture}">
+              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top mt-2 mx-auto d-block" alt="Profile image not found" style="width: 200px;height: 200px;">
+          </div>
 
           <div class="card-body">
 

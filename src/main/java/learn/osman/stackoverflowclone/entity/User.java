@@ -1,7 +1,11 @@
 package learn.osman.stackoverflowclone.entity;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 
 public class User {
@@ -9,22 +13,23 @@ public class User {
     private String displayName;
     private String emailAddress;
     private String password;
-    private Path userProfilePicPath;
-//    private String aboutMe;
-//    private String location;
-//    private LocalDateTime createdDate;
-    public User(){
+    private MultipartFile userProfilePicture;
+    public User() {
 
     }
+    public User(Long userId, String displayName, String emailAddress, String password, MultipartFile userProfilePicture) {
+        this.userId = userId;
+        this.displayName = displayName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.userProfilePicture = userProfilePicture;
+    }
+
     public User(Long userId, String displayName, String emailAddress, String password) {
         this.userId = userId;
         this.displayName = displayName;
         this.emailAddress = emailAddress;
         this.password = password;
-//        this.aboutMe = aboutMe;
-//        this.location = location;
-//        this.createdDate = createdDate;
-        this.userProfilePicPath = Path.of("osmangoni.jpg");
     }
 
     public Long getUserId() {
@@ -59,35 +64,11 @@ public class User {
         this.password = password;
     }
 
-    public Path getUserProfilePicPath() {
-        return userProfilePicPath.toAbsolutePath();
+    public MultipartFile getUserProfilePicture()  {
+        return userProfilePicture;
+    }
+    public void setUserProfilePicture(MultipartFile userProfilePicture) {
+        this.userProfilePicture = userProfilePicture;
     }
 
-    public String getUserProfilePicName() {
-        return userProfilePicPath.getFileName().toString();
-    }
-
-//    public String getAboutMe() {
-//        return aboutMe;
-//    }
-//
-//    public void setAboutMe(String aboutMe) {
-//        this.aboutMe = aboutMe;
-//    }
-//
-//    public String getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(String location) {
-//        this.location = location;
-//    }
-
-//    public LocalDateTime getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(LocalDateTime createdDate) {
-//        this.createdDate = createdDate;
-//    }
 }

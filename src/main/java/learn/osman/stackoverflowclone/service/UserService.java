@@ -23,9 +23,9 @@ public class UserService {
 
     private void addDummyData() {
         User user1 = new User(1L, "Osman", "osman@gmail.com", "123456");
-        User user2 = new User(2L, "Farman", "farman@gmail.com", "123456");
+//        User user2 = new User(2L, "Farman", "farman@gmail.com", "123456");
         users.put(user1.getUserId(), user1);
-        users.put(user2.getUserId(), user2);
+//        users.put(user2.getUserId(), user2);
     }
 
     public Map<Long, User> getAllUser() {

@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 
 <body layout:fragment="body">
-<form th:action="@{/users/create-new-user}" th:object="${userObj}" method="POST">
+<form th:action="@{/users/create-new-user}" th:object="${userObj}" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="userid" class="form-label">User Id</label>
         <input type="text" class="form-control" id="userid" th:field="*{userId}">
@@ -24,6 +24,11 @@
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" th:field="*{password}">
         <span class="error_field" th:if="${passwordError}" th:text="${passwordError}"></span>
+    </div>
+    <div class="mb-3">
+        <label for="profilepicture" class="form-label">Avatar</label>
+        <input type="file" class="form-control" id="profilepicture" th:field="*{userProfilePicture}">
+        <span class="error_field" th:if="${userProfilePictureError}" th:text="${userProfilePictureError}"></span>
     </div>
     <input type="submit" class="btn btn-primary" value="Create Account">
 </form>
