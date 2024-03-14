@@ -6,7 +6,9 @@
 <body layout:fragment="body">
 <div class="my-3 d-flex justify-content-between">
     <h3 class="text-center">All Questions</h3>
-    <button class="btn btn-lg btn-outline-success text-white bg-primary rounded">Ask Question</button>
+    <a th:href="@{/questions/ask-new-question}">
+        <button class="btn btn-lg btn-outline-success text-white bg-primary rounded">Ask Question</button>
+    </a>
 </div>
 
 <div>

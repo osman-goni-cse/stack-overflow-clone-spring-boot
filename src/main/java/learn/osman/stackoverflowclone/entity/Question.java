@@ -50,6 +50,9 @@ public class Question {
         this.tagList = tagList;
     }
 
+    public Question() {
+
+    }
     public Question(Long questionId, String questionTitle, String questionDetails, User user, List<Tag> tagList) {
         this.questionId = questionId;
         this.questionTitle = questionTitle;
@@ -74,5 +77,16 @@ public class Question {
 
     public void removeTag(Question question, Tag tag) {
         question.tagList.remove(tag);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "questionId=" + questionId +
+                ", questionTitle='" + questionTitle + '\'' +
+                ", questionDetails='" + questionDetails + '\'' +
+                ", user=" + user +
+                ", tagList=" + tagList +
+                '}';
     }
 }
