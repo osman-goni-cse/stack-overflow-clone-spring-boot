@@ -3,23 +3,50 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 
+  <link rel="stylesheet" href="/css/form-design.css">
+
 <body layout:fragment="body">
-<form th:action="@{/users/login}" th:object="${userObj}" method="POST">
+<!--  <form th:action="@{/users/login}" th:object="${userObj}" method="POST">-->
+<!--  -->
+<!--    <div class="mb-3">-->
+<!--      <label for="userId" class="form-label">User ID</label>-->
+<!--      <input type="text" class="form-control" id="userId" th:field="*{userId}">-->
+<!--      <span class="error_field" th:if="${userIdError}" th:text="${userIdError}"></span>-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label for="password" class="form-label">Password</label>-->
+<!--      <input type="password" class="form-control" id="password" th:field="*{password}">-->
+<!--      <span class="error_field" th:if="${passwordError}" th:text="${passwordError}"></span>-->
+<!--    </div>-->
+<!--    <span class="d-block error_field" th:if="${validationError}" th:text="${validationError}"></span>-->
+<!--    <input type="submit" class="btn btn-primary" value="Log in">-->
+<!--  -->
+<!--  </form>-->
+  <div class="row justify-content-center align-items-center" style="height:80vh;">
+    <div class="col-md-6">
 
-  <div class="mb-3">
-    <label for="userId" class="form-label">User ID</label>
-    <input type="text" class="form-control" id="userId" th:field="*{userId}">
-    <span class="error_field" th:if="${userIdError}" th:text="${userIdError}"></span>
+      <form id="msform" th:action="@{/users/login}" th:object="${userObj}" method="POST">
+
+        <fieldset>
+          <h2 class="fs-title">Login</h2>
+          <div class="mb-3">
+            <label for="userId" class="form-label" >User ID</label>
+            <input type="text" class="form-control" id="userId" th:field="*{userId}">
+            <span class="error_field" th:if="${userIdError}" th:text="${userIdError}"></span>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label" >Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}">
+            <span class="error_field" th:if="${passwordError}" th:text="${passwordError}"></span>
+          </div>
+          <span class="d-block error_field" th:if="${validationError}" th:text="${validationError}"></span>
+
+          <input type="submit" name="login" class="next action-button" value="Login"/>
+        </fieldset>
+
+      </form>
+
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" th:field="*{password}">
-    <span class="error_field" th:if="${passwordError}" th:text="${passwordError}"></span>
-  </div>
-  <span class="d-block error_field" th:if="${validationError}" th:text="${validationError}"></span>
-  <input type="submit" class="btn btn-primary" value="Log in">
-
-</form>
-
 </body>
 </html>
