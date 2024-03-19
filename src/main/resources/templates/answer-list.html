@@ -4,49 +4,51 @@
       layout:decorate="~{layout}" >
 
 <body layout:fragment="body">
-  <div class="row">
-
-    <div class="col mt-3">
-      <div class="card h-75 w-100 border-warning">
-        <div class="card-body">
-          <h5 class="card-title" th:text="${question.questionTitle}"></h5>
-          <div class="my-2 rounded-4 d-flex flex-row">
-            <p class="me-2">2011 votes</p>
-            <p class="me-2 text-success">Asked 3 years, 8 months ago</p>
-            <p class="me-2 text-warning">3.3m views</p>
-          </div>
-          <p class="card-text" th:text="${question.questionDetails}"></p>
-          <p class="card-text">
-            <span class="btn-secondary me-2 p-2 text-white bg-info rounded" th:each="tag: ${question.tagList}" th:utext="${tag.tagName}"></span>
-          </p>
+  <div class="question-container p-4 mt-3">
+    <div class="row">
+      <div class="col-md-2 user-info">
+        <div class="user-details">
+          <img th:if="${question.user.userProfilePicture}" th:src="@{'/images/' + ${question.user.userProfilePicture.originalFilename}}" alt="User Profile">
+          <img th:unless="${question.user.userProfilePicture}" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Profile">
+          <span class="text-muted" th:text="${question.user.displayName}" ></span>
         </div>
-        <div class="card-footer border-secondary">
-          <small class="text-muted" th:text="${question.user.displayName}"></small>
+      </div>
+      <div class="col-md-10">
+        <div class="question-title" th:text="${question.questionTitle}"></div>
+        <div class="question-details" th:text="${question.questionDetails}"></div>
+        <div class="question-tags mb-2">
+          <span class="badge text-bg-dark" th:each="tag: ${question.tagList}" th:text="${tag.tagName}"></span>
+        </div>
+        <div class="question-info">
+          <span class="badge text-bg-success">5 votes</span>
+          <span class="badge text-bg-primary">3 answers</span>
+          <span class="badge text-bg-info">10 views</span>
+          <span class="float-end">5 minutes ago</span>
         </div>
       </div>
     </div>
   </div>
-<div>
-  <!-- Assuming 'list' is the list you want to get the length of -->
-  <span th:text="${answers.size()}"></span><span class="ms-2"> Answers</span>
+<!--<div>-->
+<!--  &lt;!&ndash; Assuming 'list' is the list you want to get the length of &ndash;&gt;-->
+<!--  <span th:text="${answers.size()}"></span><span class="ms-2"> Answers</span>-->
 
-  <div class="row" th:each="answer: ${answers}">
+<!--  <div class="row" th:each="answer: ${answers}">-->
 
-    <div class="col mt-3">
-      <div class="card h-75 w-100 border-warning">
-        <div class="card-body">
-          <p class="card-text" th:text="${answer.answerDetail}"></p>
+<!--    <div class="col mt-3">-->
+<!--      <div class="card h-75 w-100 border-warning">-->
+<!--        <div class="card-body">-->
+<!--          <p class="card-text" th:text="${answer.answerDetail}"></p>-->
 
-        </div>
-        <div class="card-footer border-secondary">
-          <small class="text-muted me-2">Share</small>
-          <small class="text-muted me-2">Improve this answer</small>
-          <small class="text-muted">Follow</small>
+<!--        </div>-->
+<!--        <div class="card-footer border-secondary">-->
+<!--          <small class="text-muted me-2">Share</small>-->
+<!--          <small class="text-muted me-2">Improve this answer</small>-->
+<!--          <small class="text-muted">Follow</small>-->
 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 </body>
 </html>

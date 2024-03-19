@@ -4,35 +4,35 @@
       layout:decorate="~{layout}" >
 
 <body layout:fragment="body">
-<div class="my-3 d-flex justify-content-between">
-    <h3 class="text-center">All Questions</h3>
-    <a th:href="@{/questions/ask-new-question}">
-        <button class="btn btn-lg btn-outline-success text-white bg-primary rounded">Ask Question</button>
-    </a>
-</div>
+    <div class="my-3 d-flex justify-content-between">
+        <h3 class="text-center">All Questions</h3>
+        <a th:href="@{/questions/ask-new-question}">
+            <button class="btn btn-lg btn-outline-success text-white bg-primary rounded">Ask Question</button>
+        </a>
+    </div>
 
-<div>
-<div class="row" th:each="question: ${questions}">
-        <div class="col-2 mt-3 rounded-4 border border-success d-flex flex-column justify-content-center align-items-center">
-            <p>2011 votes</p>
-            <p class="text-success">37 answers</p>
-            <p class="text-warning">3.3m views</p>
-        </div>
-        <div class="col-10 mt-3">
-            <div class="card h-75 w-100 border-warning">
-                <div class="card-body">
-                    <a class="card-title fs-3 fw-bold font-monospace link-primary" th:href="@{/questions/{questionId}/answers(questionId=${question.getQuestionId()})}" th:text="${question.questionTitle}"></a>
-                    <p class="card-text" th:text="${question.questionDetails}"></p>
-                    <p class="card-text">
-                        <span class="btn-secondary mb-2 me-2 p-2 text-white bg-info rounded" th:each="tag: ${question.tagList}" th:text="${tag.tagName}"></span>
-                    </p>
-                </div>
-                <div class="card-footer border-secondary">
-                    <small class="text-muted" th:text="${question.user.displayName}"></small>
+    <div class="question-container p-4" th:each="question: ${questions}">
+        <div class="row">
+            <div class="col-md-2 user-info">
+                <div class="user-details">
+                    <img th:if="${question.user.userProfilePicture}" th:src="@{'/images/' + ${question.user.userProfilePicture.originalFilename}}" alt="User Profile">
+                    <img th:unless="${question.user.userProfilePicture}" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Profile">
+                    <span class="text-muted" th:text="${question.user.displayName}" ></span>
                 </div>
             </div>
+            <div class="col-md-10">
+                <a class="question-title" th:href="@{/questions/{questionId}/answers(questionId=${question.getQuestionId()})}" th:text="${question.questionTitle}"></a>
+                <div class="question-tags mb-2">
+                    <span class="badge text-bg-dark" th:each="tag: ${question.tagList}" th:text="${tag.tagName}"></span>
+                </div>
+                <div class="question-info">
+                    <span class="badge text-bg-success">5 votes</span>
+                    <span class="badge text-bg-primary">3 answers</span>
+                    <span class="badge text-bg-info">10 views</span>
+                    <span class="float-end">5 minutes ago</span>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </body>
 </html>
