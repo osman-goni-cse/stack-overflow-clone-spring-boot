@@ -76,4 +76,11 @@ public class QuestionService {
         }
         return null;
     }
+    public List<Tag> getTagListFromIds(List<Long> tagIds) {
+        List<Tag> tags = new ArrayList<>();
+        for (Long id: tagIds) {
+            tags.add(tagService.findTagFromTagId(id));
+        }
+        return tags;
+    }
 }

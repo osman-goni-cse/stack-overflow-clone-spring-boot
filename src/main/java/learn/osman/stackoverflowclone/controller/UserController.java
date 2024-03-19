@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -123,7 +124,9 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm(@ModelAttribute("userObj") User user) {
+    public String showLoginForm(@ModelAttribute("userObj") User user, Model model, RedirectAttributes redirectAttributes) {
+        String userIsNotLoggedIn = (String) redirectAttributes.getFlashAttributes().get("userIsNotLoggedIn");
+        model.addAttribute("userIsNotLoggedIn", userIsNotLoggedIn);
         return "login-form";
     }
 

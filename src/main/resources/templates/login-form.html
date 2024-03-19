@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 
 <body layout:fragment="body">
-
+  <span class="error_field" th:if="${userIsNotLoggedIn}" th:text="${userIsNotLoggedIn}"></span>
   <div class="row justify-content-center align-items-center" style="height:80vh;">
     <div class="col-md-6">
 

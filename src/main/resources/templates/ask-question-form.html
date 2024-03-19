@@ -5,31 +5,40 @@
 
 <body layout:fragment="body">
 
-<form th:action="@{/questions/create-new-question}" th:object="${questionObj}" method="POST" enctype="multipart/form-data">
-    <div class="mb-3">
-          <label for="questionid" class="form-label">Question Id</label>
-          <input type="text" class="form-control" id="questionid" th:field="*{questionId}">
-          <span class="error_field" th:if="${questionIdError}" th:text="${questionIdError}"></span>
+<div class="row justify-content-center align-items-center" style="height: 80vh">
+    <div class="col-md-6">
+        <form id="msform" th:action="@{/questions/create-new-question}" th:object="${questionObj}" method="POST">
+            <fieldset>
+                <h2 class="fs-title">Ask Your Question</h2>
+                <div class="mb-3">
+                    <label for="questionid" class="form-label">Question Id</label>
+                    <input type="text" class="form-control" id="questionid" th:field="*{questionId}">
+                    <span class="error_field" th:if="${questionIdError}" th:text="${questionIdError}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="questiontitle" class="form-label">Question Title</label>
+                    <input type="text" class="form-control" id="questiontitle" th:field="*{questionTitle}">
+                    <span class="error_field" th:if="${questionTitleError}" th:text="${questionTitleError}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="questiondetails" class="form-label">Question Details</label>
+                    <input type="text" class="form-control" id="questiondetails" th:field="*{questionDetails}">
+                    <span class="error_field" th:if="${questionDetailError}" th:text="${questionDetailError}"></span>
+                </div>
+                <div class="mb-3">
+                    <span>Tag</span>
+                    <div th:each="tag : ${tags}">
+
+                        <input type="checkbox" th:id="${'tag_' + tag.tagId}" th:name="selectedTags" th:value="${tag.tagId}">
+                        <label th:for="${'tag_' + tag.tagId}" th:text="${tag}"></label>
+
+                        <br>
+                    </div>
+                </div>
+                <input type="submit" class="next action-button" value="Submit">
+            </fieldset>
+        </form>
     </div>
-    <div class="mb-3">
-          <label for="questiontitle" class="form-label">Question Title</label>
-          <input type="text" class="form-control" id="questiontitle" th:field="*{questionTitle}">
-          <span class="error_field" th:if="${questionTitleError}" th:text="${questionTitleError}"></span>
-    </div>
-    <div class="mb-3">
-          <label for="questiondetails" class="form-label">Question Details</label>
-          <input type="text" class="form-control" id="questiondetails" th:field="*{questionDetails}">
-          <span class="error_field" th:if="${questionDetailError}" th:text="${questionDetailError}"></span>
-    </div>
-    <div class="mb-3">
-        <label th:for="tag" class="form-label">Tag</label>
-        <div th:each="item : ${tags}">
-            <input type="checkbox" th:id="${'item_' + item}" th:name="selectedItems" th:value="${item}">
-            <label th:for="${'item_' + item}" th:text="${item}"></label>
-            <br>
-        </div>
-    </div>
-  </div>
-  <input type="submit" class="btn btn-primary" value="Ask">
-</form>
+</div>
 </body>
+</html>

@@ -1,17 +1,18 @@
 package learn.osman.stackoverflowclone.controller;
 
+import jakarta.servlet.http.HttpSession;
 import learn.osman.stackoverflowclone.entity.Question;
 import learn.osman.stackoverflowclone.entity.Tag;
+import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.service.QuestionService;
 import learn.osman.stackoverflowclone.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,8 +38,15 @@ public class QuestionController {
     }
 
     @GetMapping("/ask-new-question")
-    public String showQuestionForm(@ModelAttribute("questionObj") Question question, Model model) {
-//        List<String> tags = Arrays.asList("Item 1", "Item 2", "Item 3");
+    public String showQuestionForm(@ModelAttribute("questionObj") Question question, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+
+        if(session.getAttribute("loggedInUser") == null) {
+//            RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
+            redirectAttributes.addFlashAttribute("userIsNotLoggedIn", "You must be logged in to ask a question on DSi Overflow");
+            System.out.println(redirectAttributes);
+            return "redirect:/users/login";
+        }
+
         List<Tag> tags = tagService.findAllTags();
 
         model.addAttribute("tags", tags);
@@ -46,10 +54,19 @@ public class QuestionController {
     }
 
     @PostMapping("/create-new-question")
-    public String processQuestionForm(@ModelAttribute("questionObj") Question question, Model model) {
+    public String processQuestionForm(@ModelAttribute("questionObj") Question question,
+                                      @RequestParam("selectedTags") List<Long> selectedTags,
+                                      HttpSession session) {
 //        System.out.println(question);
-        List<Tag> tagList = question.getTagList();
+        System.out.println(selectedTags);
+        List<Tag> tagList = questionService.getTagListFromIds(selectedTags);
         System.out.println(tagList);
+
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        question.setTagList(tagList);
+        question.setUser(loggedInUser);
+
+        System.out.println(question);
         return "redirect:/questions/get-all-question";
     }
 }

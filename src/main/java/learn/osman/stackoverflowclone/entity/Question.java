@@ -50,6 +50,7 @@ public class Question {
         this.tagList = tagList;
     }
 
+
     public Question() {
 
     }
@@ -89,4 +90,6 @@ public class Question {
                 ", tagList=" + tagList +
                 '}';
     }
+
+
 }
