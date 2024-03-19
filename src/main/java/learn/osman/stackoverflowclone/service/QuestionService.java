@@ -83,4 +83,8 @@ public class QuestionService {
         }
         return tags;
     }
+
+    public void addQuestion(Question question) {
+        questionList.add(question);
+    }
 }

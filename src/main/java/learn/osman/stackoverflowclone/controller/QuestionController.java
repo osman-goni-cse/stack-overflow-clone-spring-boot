@@ -47,6 +47,7 @@ public class QuestionController {
             return "redirect:/users/login";
         }
 
+
         List<Tag> tags = tagService.findAllTags();
 
         model.addAttribute("tags", tags);
@@ -55,8 +56,40 @@ public class QuestionController {
 
     @PostMapping("/create-new-question")
     public String processQuestionForm(@ModelAttribute("questionObj") Question question,
-                                      @RequestParam("selectedTags") List<Long> selectedTags,
+                                      @RequestParam(value = "selectedTags", required = false) List<Long> selectedTags,
+                                      Model model,
                                       HttpSession session) {
+
+
+        boolean isAnyQuestionFieldBlank = false;
+
+        if(question.getQuestionId() == null) {
+            isAnyQuestionFieldBlank = true;
+            model.addAttribute("questionIdError", "Question ID is required");
+        }
+
+        if(question.getQuestionTitle().trim().isEmpty()) {
+            isAnyQuestionFieldBlank = true;
+            model.addAttribute("questionTitleError", "Question Title is required");
+        }
+
+        if(question.getQuestionDetails().trim().isEmpty()) {
+            isAnyQuestionFieldBlank = true;
+            model.addAttribute("questionDetailError", "Question Detail is required");
+        }
+
+        if (selectedTags == null) {
+            isAnyQuestionFieldBlank = true;
+            model.addAttribute("tagError", "Tag is required");
+        }
+
+        if(isAnyQuestionFieldBlank) {
+            List<Tag> tags = tagService.findAllTags();
+
+            model.addAttribute("tags", tags);
+            return "ask-question-form";
+        }
+
 //        System.out.println(question);
         System.out.println(selectedTags);
         List<Tag> tagList = questionService.getTagListFromIds(selectedTags);
@@ -66,7 +99,8 @@ public class QuestionController {
         question.setTagList(tagList);
         question.setUser(loggedInUser);
 
-        System.out.println(question);
+        questionService.addQuestion(question);
+
         return "redirect:/questions/get-all-question";
     }
 }

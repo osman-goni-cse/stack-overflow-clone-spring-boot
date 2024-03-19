@@ -47,14 +47,17 @@ public class TagService {
         for (Tag tag: tagList) {
             if (tag.getTagId().equals(updatedTag.getTagId())) {
                 tagList.set(counter, updatedTag);
+                break;
             }
             counter++;
         }
-        counter = 0;
+
         for (Question question: questionService.getAllQuestions()) {
+            counter = 0;
             for (Tag tag: question.getTagList()) {
                 if (tag.getTagId().equals(updatedTag.getTagId())) {
                     question.getTagList().set(counter, updatedTag);
+                    break;
                 }
                 counter++;
             }
@@ -79,25 +82,25 @@ public class TagService {
         Iterator<Question> questionIterator = questionService.getAllQuestions().iterator();
         while (questionIterator.hasNext()) {
             Question question = questionIterator.next();
-
-            Iterator<Tag> tagIterator = tagList.iterator();
-            while (tagIterator.hasNext()) {
-                Tag tag = tagIterator.next();
-
-                if (tag.getTagId().equals(tagId)) {
-                    // Assuming you have a method to find the tag from tagId in the question
-                    question.removeTag(question, findTagFromTagId(tagId));
-
-                    // Remove the tag from the iterator to avoid ConcurrentModificationException
-                    tagIterator.remove();
-                }
-            }
-
+            question.removeTag(question, findTagFromTagId(tagId));
             // If the question's tagList is empty, remove the question
-//            if (question.getTagList().isEmpty()) {
-//                questionIterator.remove();
-//            }
+
+            if (question.getTagList().isEmpty()) {
+                questionIterator.remove();
+            }
         }
+
+        Iterator<Tag> tagIterator = tagList.iterator();
+        while (tagIterator.hasNext()) {
+            Tag tag = tagIterator.next();
+
+            if (tag.getTagId().equals(tagId)) {
+                tagIterator.remove();
+            }
+        }
+
+
+    }
 // The below code works perfectly
 //        Iterator<Tag> iterator = tagList.iterator();
 //        while (iterator.hasNext()) {
@@ -106,7 +109,7 @@ public class TagService {
 //                iterator.remove();
 //            }
 //        }
-    }
+
 
 //    public boolean isAllFieldValid() {
 //
