@@ -4,24 +4,31 @@
       layout:decorate="~{layout}">
 
 <body layout:fragment="body">
-<form th:action="@{/tags/create-tag}" th:object="${tagObj}" method="POST">
-    <div class="mb-3">
-        <label for="tagId" class="form-label">Tag Id</label>
-        <input type="text" class="form-control" id="tagId" th:field="*{tagId}">
-        <span class="error_field" th:if="${tagIdError}" th:text="${tagIdError}"></span>
-    </div>
-    <div class="mb-3">
-        <label for="tagName" class="form-label">Tag Name</label>
-        <input type="text" class="form-control" id="tagName" th:field="*{tagName}">
-        <span class="error_field" th:if="${tagNameError}" th:text="${tagNameError}"></span>
-    </div>
-    <div class="mb-3">
-        <label for="tagDetails" class="form-label">Tag Details</label>
-        <input type="text" class="form-control" id="tagDetails" th:field="*{tagDetails}">
-        <span class="error_field" th:if="${tagDetailsError}" th:text="${tagDetailsError}"></span>
-    </div>
-    <input type="submit" class="btn btn-primary" value="Create">
-</form>
+    <div class="row justify-content-center align-items-center" style="height: 80vh;">
+        <div class="col-md-6">
+            <form id="msform" th:action="@{/tags/create-tag}" th:object="${tagObj}" method="POST">
+                <fieldset>
+                    <h2 class="fs-title">Create Tag</h2>
+                    <div class="mb-3">
+                        <label for="tagId" class="form-label">Tag Id</label>
+                        <input type="text" class="form-control" id="tagId" th:field="*{tagId}">
+                        <span class="error_field" th:if="${tagIdError}" th:text="${tagIdError}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tagName" class="form-label">Tag Name</label>
+                        <input type="text" class="form-control" id="tagName" th:field="*{tagName}">
+                        <span class="error_field" th:if="${tagNameError}" th:text="${tagNameError}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tagDetails" class="form-label">Tag Details</label>
+                        <input type="text" class="form-control" id="tagDetails" th:field="*{tagDetails}">
+                        <span class="error_field" th:if="${tagDetailsError}" th:text="${tagDetailsError}"></span>
+                    </div>
+                    <input type="submit" class="next action-button" value="Create">
+                </fieldset>
+            </form>
 
+        </div>
+    </div>
 </body>
 </html>
