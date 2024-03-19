@@ -23,18 +23,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
     private UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/get-all-user")
-    public String allUsers(Model model){
+    public String allUsers(Model model) {
         Map<Long, User> users = userService.getAllUser();
         model.addAttribute("users", users);
         return "user-list";
@@ -78,10 +80,10 @@ public class UserController {
             isUserBlank = true;
             model.addAttribute("passwordError", "Password is required");
         }
-        if(user.getUserProfilePicture() == null || user.getUserProfilePicture().isEmpty()) {
+        if (user.getUserProfilePicture() == null || user.getUserProfilePicture().isEmpty()) {
             isUserBlank = true;
             model.addAttribute("userProfilePictureError", "Profile Picture Required.");
-        }else {
+        } else {
 
 //            String resourcesDirectory = "src/main/resources/static/images/";
 //            byte[] avatar = user.getUserProfilePicture().getBytes();
@@ -102,10 +104,10 @@ public class UserController {
 //                ioe.printStackTrace();
 //            }
 
-             /* This is working perfectly */
+            /* This is working perfectly */
             MultipartFile uploadedImage = user.getUserProfilePicture();
             File imagesFolder = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
-            if(!imagesFolder.exists()) {
+            if (!imagesFolder.exists()) {
                 imagesFolder.mkdirs();
             }
             Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + uploadedImage.getOriginalFilename());
@@ -150,8 +152,7 @@ public class UserController {
             model.addAttribute("loggedInUser", loggedInUser);
             session.setAttribute("loggedInUser", loggedInUser);
             return "redirect:/";
-        }
-        else {
+        } else {
             model.addAttribute("validationError", "Your ID/Password is incorrect");
             return "login-form";
         }
@@ -164,5 +165,19 @@ public class UserController {
             session.invalidate();
         }
         return "redirect:/users/login";
+    }
+
+    @GetMapping("/search")
+    public String searchUsersByNameOrEmail(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+        Map<Long, User> users = userService.getAllUser();
+
+        if (keyword != null && !keyword.isEmpty()) {
+            users = users.entrySet().stream()
+                    .filter(entry -> entry.getValue().getDisplayName().contains(keyword) || entry.getValue().getEmailAddress().contains(keyword))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        }
+        model.addAttribute("users", users);
+        return "user-list";
     }
 }

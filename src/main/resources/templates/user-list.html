@@ -6,8 +6,8 @@
 <body layout:fragment="body">
   <div class="my-3 d-flex justify-content-between">
     <h3 class="text-center">Users</h3>
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search by user" aria-label="Search">
+    <form th:action="@{/users/search}" class="d-flex" role="search" method="GET">
+      <input class="form-control me-2" type="search" name="keyword" placeholder="Search by user/email" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
