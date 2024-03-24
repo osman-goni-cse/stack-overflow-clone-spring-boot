@@ -1,15 +1,38 @@
 package learn.osman.stackoverflowclone.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Tag {
+    @Id
+    @GeneratedValue
     private Long tagId;
+
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Tag name is required")
     private String tagName;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Tag Details is required")
     private String tagDetails;
+
+    @ManyToMany
+    @JoinTable(
+            name = "TAGS_QUESTIONS",
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
     private List<Question> questions;
-    public Tag(Long tagId, String tagName, String tagDetails) {
-        this.tagId = tagId;
+
+    public Tag() {
+
+    }
+    public Tag(String tagName, String tagDetails) {
         this.tagName = tagName;
         this.tagDetails = tagDetails;
         this.questions = new ArrayList<>();

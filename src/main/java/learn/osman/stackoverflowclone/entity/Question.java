@@ -1,13 +1,20 @@
 package learn.osman.stackoverflowclone.entity;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Question {
+    @Id
+    @GeneratedValue
     private Long questionId;
     private String questionTitle;
     private String questionDetails;
-    private User user;
+    @ManyToOne
+    private User userEntity;
+    @ManyToMany(mappedBy = "questions")
     private List<Tag> tagList;
 
     public Long getQuestionId() {
@@ -34,13 +41,13 @@ public class Question {
         this.questionDetails = questionDetails;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public userEntity getuserEntity() {
+//        return userEntity;
+//    }
+//
+//    public void setuserEntity(userEntity userEntity) {
+//        this.userEntity = userEntity;
+//    }
 
     public List<Tag> getTagList() {
         return tagList;
@@ -54,19 +61,19 @@ public class Question {
     public Question() {
 
     }
-    public Question(Long questionId, String questionTitle, String questionDetails, User user, List<Tag> tagList) {
+    public Question(Long questionId, String questionTitle, String questionDetails, User userEntity, List<Tag> tagList) {
         this.questionId = questionId;
         this.questionTitle = questionTitle;
         this.questionDetails = questionDetails;
-        this.user = user;
+        this.userEntity = userEntity;
         this.tagList = tagList;
 //        this.tagList = new ArrayList<>();
     }
-    public Question(Long questionId, String questionTitle, String questionDetails, User user) {
+    public Question(Long questionId, String questionTitle, String questionDetails, User userEntity) {
         this.questionId = questionId;
         this.questionTitle = questionTitle;
         this.questionDetails = questionDetails;
-        this.user = user;
+        this.userEntity = userEntity;
         this.tagList = new ArrayList<>();
     }
 
@@ -86,7 +93,7 @@ public class Question {
                 "questionId=" + questionId +
                 ", questionTitle='" + questionTitle + '\'' +
                 ", questionDetails='" + questionDetails + '\'' +
-                ", user=" + user +
+                ", user=" + userEntity +
                 ", tagList=" + tagList +
                 '}';
     }

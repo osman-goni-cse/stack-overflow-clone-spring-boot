@@ -1,10 +1,12 @@
 package learn.osman.stackoverflowclone.controller;
 
+import jakarta.validation.Valid;
 import learn.osman.stackoverflowclone.entity.Tag;
 import learn.osman.stackoverflowclone.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,23 +39,9 @@ public class TagController {
     }
 
     @PostMapping("/create-tag")
-    public String createTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
-        boolean isTagObjectBlank = false;
-        if (tagObj.getTagId() == null) {
-            isTagObjectBlank = true;
-            model.addAttribute("tagIdError", "Tag ID is required");
-        }
-        if (tagObj.getTagName() == null || tagObj.getTagName().trim().isEmpty()) {
-            isTagObjectBlank = true;
-            model.addAttribute("tagNameError", "Tag Name is required");
-        }
-        if (tagObj.getTagDetails().trim().isEmpty()) {
-            isTagObjectBlank = true;
-            model.addAttribute("tagDetailsError", "Tag Details is required");
-        }
+    public String createTag(@ModelAttribute("tagObj") @Valid Tag tagObj, BindingResult bindingResult) {
 
-        if(isTagObjectBlank) {
-//            System.out.println("Tag Obejct is null");
+        if(bindingResult.hasErrors()) {
             return "create-tag-form";
         }
         tagService.addNewTag(tagObj);
@@ -62,10 +50,14 @@ public class TagController {
     }
 
     @PostMapping("/update-tag")
-    public String updateTag(@ModelAttribute("tagObj") Tag tagObj, Model model) {
+    public String updateTag(@ModelAttribute("tagObj") @Valid Tag tagObj, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/tags/get-all-tag";
+        }
         tagService.updateTag(tagObj);
         return "redirect:/tags/get-all-tag";
     }
+
     @GetMapping("/delete-tag/{tagId}")
     public String deleteTag(@PathVariable("tagId") Long tagId, @ModelAttribute("tagObj") Tag tagObj, Model model) {
         tagService.deleteTag(tagId);

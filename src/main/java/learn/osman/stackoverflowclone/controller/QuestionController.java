@@ -97,7 +97,7 @@ public class QuestionController {
 
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         question.setTagList(tagList);
-        question.setUser(loggedInUser);
+//        question.setUser(loggedInUser);
 
         questionService.addQuestion(question);
 

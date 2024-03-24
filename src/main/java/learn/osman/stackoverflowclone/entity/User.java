@@ -1,23 +1,34 @@
 package learn.osman.stackoverflowclone.entity;
 
 
+import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.List;
 
+@Entity(name = "UserEntity") // user is a reserved keyword in PostgreSQL
 public class User {
+    @Id
+    @GeneratedValue
     private Long userId;
     private String displayName;
     private String emailAddress;
     private String password;
-    private MultipartFile userProfilePicture;
+
+//    private MultipartFile userProfilePicture;
+    @Lob
+    private byte[] userProfilePicture;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<Question> questions;
     public User() {
 
     }
-    public User(Long userId, String displayName, String emailAddress, String password, MultipartFile userProfilePicture) {
+    public User(Long userId, String displayName, String emailAddress, String password, byte[] userProfilePicture) {
         this.userId = userId;
         this.displayName = displayName;
         this.emailAddress = emailAddress;
@@ -64,11 +75,19 @@ public class User {
         this.password = password;
     }
 
-    public MultipartFile getUserProfilePicture()  {
+    public byte[] getUserProfilePicture()  {
         return userProfilePicture;
     }
-    public void setUserProfilePicture(MultipartFile userProfilePicture) {
+    public void setUserProfilePicture(byte[] userProfilePicture) {
         this.userProfilePicture = userProfilePicture;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", displayName='" + displayName + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                '}';
+    }
 }

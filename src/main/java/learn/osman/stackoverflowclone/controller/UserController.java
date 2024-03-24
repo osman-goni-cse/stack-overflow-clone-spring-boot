@@ -79,7 +79,7 @@ public class UserController {
         if (user.getPassword().trim().isEmpty()) {
             isUserBlank = true;
             model.addAttribute("passwordError", "Password is required");
-        }
+        }/*
         if (user.getUserProfilePicture() == null || user.getUserProfilePicture().isEmpty()) {
             isUserBlank = true;
             model.addAttribute("userProfilePictureError", "Profile Picture Required.");
@@ -104,7 +104,7 @@ public class UserController {
 //                ioe.printStackTrace();
 //            }
 
-            /* This is working perfectly */
+            // This is working perfectly
             MultipartFile uploadedImage = user.getUserProfilePicture();
             File imagesFolder = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
             if (!imagesFolder.exists()) {
@@ -114,7 +114,7 @@ public class UserController {
             Files.copy(uploadedImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
 
-        }
+        }*/
 
         if (isUserBlank) {
             return "register-user-form";
