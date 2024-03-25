@@ -13,7 +13,7 @@ public class Tag {
     @GeneratedValue
     private Long tagId;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 64)
     @NotBlank(message = "Tag name is required")
     private String tagName;
 

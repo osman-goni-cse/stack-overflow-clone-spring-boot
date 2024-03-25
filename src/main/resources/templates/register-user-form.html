@@ -10,29 +10,27 @@
                 <fieldset>
                     <h2 class="fs-title">Sign Up</h2>
                     <div class="mb-3">
-                        <label for="userid" class="form-label">User Id</label>
-                        <input type="text" class="form-control" id="userid" th:field="*{userId}">
-                        <span class="error_field" th:if="${userIdError}" th:text="${userIdError}"></span>
-                    </div>
-                    <div class="mb-3">
                         <label for="displayname" class="form-label">User Name</label>
                         <input type="text" class="form-control" id="displayname" th:field="*{displayName}">
-                        <span class="error_field" th:if="${displayNameError}" th:text="${displayNameError}"></span>
+                        <span class="error_field" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="email" th:field="*{emailAddress}">
-                        <span class="error_field" th:if="${emailAddressError}" th:text="${emailAddressError}"></span>
+                        <span class="error_field" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></span>
+
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" th:field="*{password}">
-                        <span class="error_field" th:if="${passwordError}" th:text="${passwordError}"></span>
+                        <span class="error_field" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
                     </div>
+
                     <div class="mb-3">
                         <label for="profilepicture" class="form-label">Avatar</label>
-                        <input type="file" class="form-control" id="profilepicture" th:field="*{userProfilePicture}">
-                        <span class="error_field" th:if="${userProfilePictureError}" th:text="${userProfilePictureError}"></span>
+                        <input type="file" class="form-control" id="profilepicture" name="profile">
+                        <span class="error_field" th:if="${profilePictureError}" th:text="${profilePictureError}"></span>
                     </div>
                     <input type="submit" class="next action-button" value="Create Account">
                 </fieldset>

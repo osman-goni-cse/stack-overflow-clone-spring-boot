@@ -1,47 +1,42 @@
 package learn.osman.stackoverflowclone.service;
 
 import learn.osman.stackoverflowclone.entity.User;
+import learn.osman.stackoverflowclone.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-//    private List<User> userList = new ArrayList<>(Arrays.asList(
-//            new User(1L, "Osman", "osman@gmail.com", "123456"),
-//            new User(2L, "Rafi", "rafi@gmail.com", "221133"),
-//            new User(3L, "Toufique", "tfq@gmail.com", "tourfida"),
-//            new User(4L, "Sazzad", "sazzad@gmail.com", "sazzad")
-//        ));
 
-    private Map<Long, User> users;
+    @Autowired
+    private UserRepository userRepository;
 
     public UserService() {
-        users = new HashMap<>();
-        addDummyData();
-    }
 
-    private void addDummyData() {
-        User user1 = new User(1L, "Osman", "osman@gmail.com", "123456");
-//        User user2 = new User(2L, "Farman", "farman@gmail.com", "123456");
-        users.put(user1.getUserId(), user1);
-//        users.put(user2.getUserId(), user2);
     }
 
     public Map<Long, User> getAllUser() {
-        return users;
+        List<User> users = userRepository.findAll();
+        return users.stream().collect(Collectors.toMap(User::getUserId, User -> User));
     }
 
     public User getUser(Long userId) {
-        return users.get(userId);
+        return userRepository.findById(userId).get();
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmailAddress(email);
     }
 
     public void registerUser(User user) {
-        users.put(user.getUserId(), user);
+        userRepository.save(user);
     }
 
     public boolean isUserAuthenticate(User user) {
-        User user1 = users.get(user.getUserId());
+        User user1 = userRepository.findByEmailAddress(user.getEmailAddress());
         return user1 != null && user1.getPassword().equals(user.getPassword());
     }
 }

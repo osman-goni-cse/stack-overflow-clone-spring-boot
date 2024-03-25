@@ -1,13 +1,8 @@
 package learn.osman.stackoverflowclone.entity;
 
-
 import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
+import jakarta.validation.constraints.NotBlank;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 
 @Entity(name = "UserEntity") // user is a reserved keyword in PostgreSQL
@@ -15,32 +10,25 @@ public class User {
     @Id
     @GeneratedValue
     private Long userId;
+    @NotBlank(message = "Display name is required")
     private String displayName;
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Email address is required")
     private String emailAddress;
+    @NotBlank(message = "Password is required")
     private String password;
-
-//    private MultipartFile userProfilePicture;
-    @Lob
-    private byte[] userProfilePicture;
+    private String userProfilePictureName;
 
     @OneToMany(mappedBy = "userEntity")
     private List<Question> questions;
     public User() {
 
     }
-    public User(Long userId, String displayName, String emailAddress, String password, byte[] userProfilePicture) {
-        this.userId = userId;
+    public User(String displayName, String emailAddress, String password, String userProfilePictureName) {
         this.displayName = displayName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.userProfilePicture = userProfilePicture;
-    }
-
-    public User(Long userId, String displayName, String emailAddress, String password) {
-        this.userId = userId;
-        this.displayName = displayName;
-        this.emailAddress = emailAddress;
-        this.password = password;
+        this.userProfilePictureName = userProfilePictureName;
     }
 
     public Long getUserId() {
@@ -75,11 +63,11 @@ public class User {
         this.password = password;
     }
 
-    public byte[] getUserProfilePicture()  {
-        return userProfilePicture;
+    public String getUserProfilePictureName()  {
+        return userProfilePictureName;
     }
-    public void setUserProfilePicture(byte[] userProfilePicture) {
-        this.userProfilePicture = userProfilePicture;
+    public void setUserProfilePictureName(String userProfilePictureName) {
+        this.userProfilePictureName = userProfilePictureName;
     }
 
     @Override

@@ -13,9 +13,9 @@
         <fieldset>
           <h2 class="fs-title">Login</h2>
           <div class="mb-3">
-            <label for="userId" class="form-label" >User ID</label>
-            <input type="text" class="form-control" id="userId" th:field="*{userId}">
-            <span class="error_field" th:if="${userIdError}" th:text="${userIdError}"></span>
+            <label for="email" class="form-label" >Email</label>
+            <input type="text" class="form-control" id="email" th:field="*{emailAddress}">
+            <span class="error_field" th:if="${emailAddressError}" th:text="${emailAddressError}"></span>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label" >Password</label>

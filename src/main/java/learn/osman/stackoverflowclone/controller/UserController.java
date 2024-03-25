@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import jakarta.validation.Valid;
 import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -48,79 +51,28 @@ public class UserController {
     }
 
     @PostMapping("/create-new-user")
-    public String createNewUser(@ModelAttribute("userObj") User user, Model model, HttpServletRequest request) throws IOException {
-//        Check user is null or not
-//        add user
-//        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-//        MultipartFile file = multipartRequest.getFile("userProfilePicture");
-//
-//        // Process the file as needed
-//        if (file != null) {
-//            // Handle the file
-//            user.setUserProfilePicture(file);
-//            user.setUserProfilePictureName(file.getOriginalFilename());
-//            // Rest of your logic
-//        }
+    public String createNewUser(@ModelAttribute("userObj") @Validated User userObj, BindingResult bindingResult, Model model, HttpServletRequest request) throws IOException {
 
-        boolean isUserBlank = false;
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("profile");
 
-        if (user.getUserId() == null) {
-            isUserBlank = true;
-            model.addAttribute("userIdError", "User ID is required");
-        }
-        if (user.getDisplayName().trim().isEmpty()) {
-            isUserBlank = true;
-            model.addAttribute("displayNameError", "Display Name is required");
-        }
-        if (user.getEmailAddress().trim().isEmpty()) {
-            isUserBlank = true;
-            model.addAttribute("emailAddressError", "Email ID is required");
-        }
-        if (user.getPassword().trim().isEmpty()) {
-            isUserBlank = true;
-            model.addAttribute("passwordError", "Password is required");
-        }/*
-        if (user.getUserProfilePicture() == null || user.getUserProfilePicture().isEmpty()) {
-            isUserBlank = true;
-            model.addAttribute("userProfilePictureError", "Profile Picture Required.");
-        } else {
-
-//            String resourcesDirectory = "src/main/resources/static/images/";
-//            byte[] avatar = user.getUserProfilePicture().getBytes();
-//            String profilePictureName = user.getUserProfilePicture().getOriginalFilename();
-//            user.setUserProfilePictureName(profilePictureName);
-//            Path path = Paths.get(resourcesDirectory + profilePictureName);
-//
-//            // Write the file to the specified path
-//            Files.write(path, avatar);
-//            String destinationFileName = "/home/osman/IdeaProjects/stack-overflow-clone/src/main/resources/static/images/" + user.getUserProfilePicture().getOriginalFilename();
-//            MultipartFile uploadedImage = user.getUserProfilePicture();
-////            try(InputStream inputStream = user.getUserProfilePicture().getInputStream()){
-////                Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-////            }
-//            try{
-//                uploadedImage.transferTo(new File(destinationFileName));
-//            }catch (IOException ioe) {
-//                ioe.printStackTrace();
-//            }
-
-            // This is working perfectly
-            MultipartFile uploadedImage = user.getUserProfilePicture();
-            File imagesFolder = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
-            if (!imagesFolder.exists()) {
-                imagesFolder.mkdirs();
+        if (bindingResult.hasErrors() || file == null || file.isEmpty()) {
+            if (file == null || file.isEmpty()) {
+                model.addAttribute("profilePictureError", "Profile Picture is required");
             }
-            Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + uploadedImage.getOriginalFilename());
-            Files.copy(uploadedImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-
-        }*/
-
-        if (isUserBlank) {
             return "register-user-form";
         }
 
-        userService.registerUser(user);
+        userObj.setUserProfilePictureName(file.getOriginalFilename());
+
+        File imagesFolder = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
+        if (!imagesFolder.exists()) {
+            imagesFolder.mkdirs();
+        }
+        Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + file.getOriginalFilename());
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+        userService.registerUser(userObj);
 
         return "redirect:/users/get-all-user";
     }
@@ -135,9 +87,9 @@ public class UserController {
     @PostMapping("/login")
     public String userLogin(@ModelAttribute("userObj") User user, Model model, HttpSession session) {
         boolean isUserBlank = false;
-        if (user.getUserId() == null) {
+        if (user.getEmailAddress().trim().isEmpty()) {
             isUserBlank = true;
-            model.addAttribute("userIdError", "User Id is required");
+            model.addAttribute("emailAddressError", "Email is required");
         }
         if (user.getPassword().trim().isEmpty()) {
             isUserBlank = true;
@@ -148,12 +100,12 @@ public class UserController {
             return "login-form";
         }
         if (userService.isUserAuthenticate(user)) {
-            User loggedInUser = userService.getUser(user.getUserId());
+            User loggedInUser = userService.getUserByEmail(user.getEmailAddress());
             model.addAttribute("loggedInUser", loggedInUser);
             session.setAttribute("loggedInUser", loggedInUser);
             return "redirect:/";
         } else {
-            model.addAttribute("validationError", "Your ID/Password is incorrect");
+            model.addAttribute("validationError", "Your Email/Password is incorrect");
             return "login-form";
         }
     }
