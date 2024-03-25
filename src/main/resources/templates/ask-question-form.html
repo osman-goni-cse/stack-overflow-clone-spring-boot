@@ -10,11 +10,11 @@
         <form id="msform" th:action="@{/questions/create-new-question}" th:object="${questionObj}" method="POST">
             <fieldset>
                 <h2 class="fs-title">Ask Your Question</h2>
-                <div class="mb-3">
-                    <label for="questionid" class="form-label">Question Id</label>
-                    <input type="text" class="form-control" id="questionid" th:field="*{questionId}">
-                    <span class="error_field" th:if="${questionIdError}" th:text="${questionIdError}"></span>
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="questionid" class="form-label">Question Id</label>-->
+<!--                    <input type="text" class="form-control" id="questionid" th:field="*{questionId}">-->
+<!--                    <span class="error_field" th:if="${questionIdError}" th:text="${questionIdError}"></span>-->
+<!--                </div>-->
                 <div class="mb-3">
                     <label for="questiontitle" class="form-label">Question Title</label>
                     <input type="text" class="form-control" id="questiontitle" th:field="*{questionTitle}">
@@ -29,8 +29,8 @@
                     <span>Tag</span>
                     <div th:each="tag : ${tags}">
 
-                        <input type="checkbox" th:id="${'tag_' + tag.tagId}" th:name="selectedTags" th:value="${tag.tagId}">
-                        <label th:for="${'tag_' + tag.tagId}" th:text="${tag}"></label>
+                        <input type="checkbox" th:id="${'tag_' + tag.tagId}" th:name="selectedTags" th:value="${tag.getTagId()}">
+                        <label th:for="${'tag_' + tag.getTagId()}" th:text="${tag}"></label>
 
                         <br>
                     </div>

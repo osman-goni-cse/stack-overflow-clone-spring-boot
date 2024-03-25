@@ -15,7 +15,7 @@ public class AnswerService {
     @Autowired
     public AnswerService(QuestionService questionService) {
         this.questionService = questionService;
-        initializerAnswerList();
+//        initializerAnswerList();
     }
 
     private List<Answer> answerList;

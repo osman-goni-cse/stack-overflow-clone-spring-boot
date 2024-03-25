@@ -14,14 +14,15 @@ public class TagService {
     @Autowired
     private TagRepository tagRepository;
     private QuestionService questionService;
-    List<Tag> tagList = new ArrayList<>();
 
     public TagService(@Lazy QuestionService questionService) {
         this.questionService = questionService;
     }
 
+
+
     public Tag findTagFromTagId(Long tagId) {
-        for (Tag tag : tagList) {
+        for (Tag tag : tagRepository.findAll()) {
             if (tag.getTagId().equals(tagId)) {
                 return tag;
             }
@@ -35,7 +36,6 @@ public class TagService {
 
     public void addNewTag(Tag tagObj) {
         tagRepository.save(tagObj);
-//        tagList.add(tagObj);
     }
 
     public void updateTag(Tag updatedTag) {
@@ -66,6 +66,20 @@ public class TagService {
         Tag currentTag = tagRepository.findById(tagId).orElseThrow(
                 () -> new NoSuchElementException("Tag Not found.")
         );
+
+        for (Question question: questionService.getAllQuestions()) {
+            int counter = 0;
+            for (Tag tag : question.getTagList()) {
+                if (tag.getTagId().equals(currentTag.getTagId())) {
+                    question.getTagList().remove(counter);
+                    break;
+                }
+                counter++;
+            }
+            if (question.getTagList().isEmpty()) {
+                questionService.deleteQuestion(question);
+            }
+        }
         tagRepository.delete(currentTag);
     }
 

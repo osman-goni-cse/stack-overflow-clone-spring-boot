@@ -27,8 +27,8 @@ public class AnswerController {
     @GetMapping("/{questionId}/answers")
     public String showAnswers(@PathVariable("questionId") Long questionId, Model model) {
         Question question = questionService.getQuestionFromId(questionId);
-        List<Answer> answerList = answerService.findAllAnswers(questionId);
-        model.addAttribute("answers", answerList);
+//        List<Answer> answerList = answerService.findAllAnswers(questionId);
+//        model.addAttribute("answers", answerList);
         model.addAttribute("question", question);
         return "answer-list";
     }

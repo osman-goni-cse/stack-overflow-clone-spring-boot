@@ -33,6 +33,10 @@ public class QuestionController {
     @GetMapping("/get-all-question")
     public String showAllQuestions(Model model) {
         List<Question> questionList = questionService.getAllQuestions();
+        for (Question question: questionList) {
+            System.out.println(question.getTagList());
+        }
+        System.out.println(questionList);
         model.addAttribute("questions", questionList);
         return "question-list";
     }
@@ -63,10 +67,10 @@ public class QuestionController {
 
         boolean isAnyQuestionFieldBlank = false;
 
-        if(question.getQuestionId() == null) {
-            isAnyQuestionFieldBlank = true;
-            model.addAttribute("questionIdError", "Question ID is required");
-        }
+//        if(question.getQuestionId() == null) {
+//            isAnyQuestionFieldBlank = true;
+//            model.addAttribute("questionIdError", "Question ID is required");
+//        }
 
         if(question.getQuestionTitle().trim().isEmpty()) {
             isAnyQuestionFieldBlank = true;
@@ -93,11 +97,17 @@ public class QuestionController {
 //        System.out.println(question);
         System.out.println(selectedTags);
         List<Tag> tagList = questionService.getTagListFromIds(selectedTags);
+//        List<Tag> tagList =
         System.out.println(tagList);
 
         User loggedInUser = (User) session.getAttribute("loggedInUser");
+        System.out.println("Before setting: " + question.getTagList());
         question.setTagList(tagList);
-//        question.setUser(loggedInUser);
+        System.out.println("After setting: " + question.getTagList());
+//        question.addTagToTheQuestions(question, tagList);
+        question.setUser(loggedInUser);
+
+        System.out.println(question);
 
         questionService.addQuestion(question);
 

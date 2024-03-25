@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-md-2 user-info">
         <div class="user-details">
-          <img th:if="${question.user.userProfilePicture}" th:src="@{'/images/' + ${question.user.userProfilePicture.originalFilename}}" alt="User Profile">
-          <img th:unless="${question.user.userProfilePicture}" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Profile">
+          <img th:if="${question.user.userProfilePictureName}" th:src="@{'/images/' + ${question.user.userProfilePictureName}}" alt="User Profile">
+          <img th:unless="${question.user.userProfilePictureName}" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Profile">
           <span class="text-muted" th:text="${question.user.displayName}" ></span>
         </div>
       </div>

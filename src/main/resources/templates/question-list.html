@@ -15,15 +15,15 @@
         <div class="row">
             <div class="col-md-2 user-info">
                 <div class="user-details">
-                    <img th:if="${question.user.userProfilePicture}" th:src="@{'/images/' + ${question.user.userProfilePicture.originalFilename}}" alt="User Profile">
-                    <img th:unless="${question.user.userProfilePicture}" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Profile">
+                    <img th:if="${question.user.userProfilePictureName}" th:src="@{'/images/' + ${question.user.userProfilePictureName}}" alt="User Profile">
+                    <img th:unless="${question.user.userProfilePictureName}" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Profile">
                     <span class="text-muted" th:text="${question.user.displayName}" ></span>
                 </div>
             </div>
             <div class="col-md-10">
                 <a class="question-title" th:href="@{/questions/{questionId}/answers(questionId=${question.getQuestionId()})}" th:text="${question.questionTitle}"></a>
                 <div class="question-tags mb-2">
-                    <span class="badge text-bg-dark" th:each="tag: ${question.tagList}" th:text="${tag.tagName}"></span>
+                    <span class="badge text-bg-dark" th:each="tag: ${question.getTagList()}" th:text="${tag.getTagName()}"></span>
                 </div>
                 <div class="question-info">
                     <span class="badge text-bg-success">5 votes</span>

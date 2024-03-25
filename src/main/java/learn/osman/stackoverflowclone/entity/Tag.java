@@ -21,12 +21,7 @@ public class Tag {
     @NotBlank(message = "Tag Details is required")
     private String tagDetails;
 
-    @ManyToMany
-    @JoinTable(
-            name = "TAGS_QUESTIONS",
-            joinColumns = @JoinColumn(name = "tag_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
-    )
+    @ManyToMany(mappedBy = "tagList")
     private List<Question> questions;
 
     public Tag() {

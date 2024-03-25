@@ -2,6 +2,7 @@ package learn.osman.stackoverflowclone.service;
 
 import learn.osman.stackoverflowclone.entity.Question;
 import learn.osman.stackoverflowclone.entity.Tag;
+import learn.osman.stackoverflowclone.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public class QuestionService {
     private UserService userService;
     private TagService tagService;
+    @Autowired
+    private QuestionRepository questionRepository;
     private List<Question> questionList = new ArrayList<>();
 
 //    @Autowired
@@ -34,7 +37,7 @@ public class QuestionService {
         this.userService = userService;
         this.tagService = tagService;
         // Initialize questionList after userService and tagService have been initialized
-        initializeQuestionList();
+//        initializeQuestionList();
 
     }
 //
@@ -53,23 +56,22 @@ public class QuestionService {
 ////
 //        ));
 //    }
-    private void initializeQuestionList() {
-        Question question1 = new Question(1L,
-                "How do I undo the most recent local commits in Git?",
-                "I accidentally committed the wrong files to Git, but didn't push the commit to the server yet. How do I undo those commits from the local repository?",
-                userService.getUser(1L));
-        List<Tag> listOfTagsForQuestion1 = tagService.findAllTags();
-        question1.addTagToTheQuestions(question1, listOfTagsForQuestion1);
-
-        questionList.add(question1);
-    }
+//    private void initializeQuestionList() {
+//        Question question1 = new Question(1L,
+//                "How do I undo the most recent local commits in Git?",
+//                "I accidentally committed the wrong files to Git, but didn't push the commit to the server yet. How do I undo those commits from the local repository?",
+//                userService.getUser(1L));
+//        List<Tag> listOfTagsForQuestion1 = tagService.findAllTags();
+//        question1.addTagToTheQuestions(question1, listOfTagsForQuestion1);
+//
+//        questionList.add(question1);
+//    }
     public List<Question> getAllQuestions() {
-//        initializeQuestionList();
-        return questionList;
+        return questionRepository.findAll();
     }
 
     public Question getQuestionFromId(Long questionId) {
-        for (Question question: questionList) {
+        for (Question question: questionRepository.findAll()) {
             if (question.getQuestionId().equals(questionId)) {
                 return question;
             }
@@ -85,6 +87,12 @@ public class QuestionService {
     }
 
     public void addQuestion(Question question) {
-        questionList.add(question);
+//        questionList.add(question);
+        System.out.println(question);
+        questionRepository.save(question);
+    }
+
+    public void deleteQuestion(Question question) {
+        questionRepository.delete(question);
     }
 }
