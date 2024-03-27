@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -121,12 +122,19 @@ public class UserController {
 
     @GetMapping("/search")
     public String searchUsersByNameOrEmail(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
-        Map<Long, User> users = userService.getAllUser();
-
+//        Map<Long, User> users = userService.getAllUser();
+        Map<Long, User> users = new HashMap<>();
+//
         if (keyword != null && !keyword.isEmpty()) {
-            users = users.entrySet().stream()
-                    .filter(entry -> entry.getValue().getDisplayName().contains(keyword) || entry.getValue().getEmailAddress().contains(keyword))
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//            users = users.entrySet().stream()
+//                    .filter(entry -> entry.getValue().getDisplayName().contains(keyword) || entry.getValue().getEmailAddress().contains(keyword))
+//                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+            User foundUser = userService.getUserByEmail(keyword);
+
+            if(foundUser != null) {
+                users.put(foundUser.getUserId(), foundUser);
+            }
 
         }
         model.addAttribute("users", users);
