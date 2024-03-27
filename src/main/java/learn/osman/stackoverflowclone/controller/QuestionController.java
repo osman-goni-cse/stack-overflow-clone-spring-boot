@@ -95,19 +95,19 @@ public class QuestionController {
         }
 
 //        System.out.println(question);
-        System.out.println(selectedTags);
+//        System.out.println(selectedTags);
         List<Tag> tagList = questionService.getTagListFromIds(selectedTags);
 //        List<Tag> tagList =
-        System.out.println(tagList);
+//        System.out.println(tagList);
 
         User loggedInUser = (User) session.getAttribute("loggedInUser");
-        System.out.println("Before setting: " + question.getTagList());
+//        System.out.println("Before setting: " + question.getTagList());
         question.setTagList(tagList);
-        System.out.println("After setting: " + question.getTagList());
+//        System.out.println("After setting: " + question.getTagList());
 //        question.addTagToTheQuestions(question, tagList);
-        question.setUser(loggedInUser);
+        question.setUserEntity(loggedInUser);
 
-        System.out.println(question);
+//        System.out.println(question);
 
         questionService.addQuestion(question);
 

@@ -3,10 +3,17 @@ package learn.osman.stackoverflowclone.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Tag {
     @Id
@@ -23,44 +30,6 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tagList")
     private List<Question> questions;
-
-    public Tag() {
-
-    }
-    public Tag(String tagName, String tagDetails) {
-        this.tagName = tagName;
-        this.tagDetails = tagDetails;
-        this.questions = new ArrayList<>();
-    }
-    public Long getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
-    }
-
-    public String getTagName() {
-        return tagName;
-    }
-
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
-
-    public String getTagDetails() {
-        return tagDetails;
-    }
-
-    public void setTagDetails(String tagDetails) {
-        this.tagDetails = tagDetails;
-    }
-    public List<Question> getQuestions() {
-        return questions;
-    }
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
 
     @Override
     public String toString() {
