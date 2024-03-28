@@ -29,10 +29,7 @@ public class QuestionController {
     @GetMapping("/get-all-question")
     public String showAllQuestions(Model model) {
         List<Question> questionList = questionService.getAllQuestions();
-        for (Question question: questionList) {
-            System.out.println(question.getTagList());
-        }
-        System.out.println(questionList);
+
         model.addAttribute("questions", questionList);
         return "question-list";
     }
@@ -40,7 +37,7 @@ public class QuestionController {
     @GetMapping("/ask-new-question")
     public String showQuestionForm(@ModelAttribute("questionObj") Question question, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
-        if(session.getAttribute("loggedInUser") == null) {
+        if (session.getAttribute("loggedInUser") == null) {
 //            RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
             redirectAttributes.addFlashAttribute("userIsNotLoggedIn", "You must be logged in to ask a question on DSi Overflow");
             System.out.println(redirectAttributes);
@@ -67,12 +64,12 @@ public class QuestionController {
 //            model.addAttribute("questionIdError", "Question ID is required");
 //        }
 
-        if(question.getQuestionTitle().trim().isEmpty()) {
+        if (question.getQuestionTitle().trim().isEmpty()) {
             isAnyQuestionFieldBlank = true;
             model.addAttribute("questionTitleError", "Question Title is required");
         }
 
-        if(question.getQuestionDetails().trim().isEmpty()) {
+        if (question.getQuestionDetails().trim().isEmpty()) {
             isAnyQuestionFieldBlank = true;
             model.addAttribute("questionDetailError", "Question Detail is required");
         }
@@ -82,7 +79,7 @@ public class QuestionController {
             model.addAttribute("tagError", "Tag is required");
         }
 
-        if(isAnyQuestionFieldBlank) {
+        if (isAnyQuestionFieldBlank) {
             List<Tag> tags = tagService.findAllTags();
 
             model.addAttribute("tags", tags);
@@ -112,6 +109,13 @@ public class QuestionController {
     @GetMapping("/asked-question-by-user/{userId}")
     public String showQuestionAskedByUser(@PathVariable("userId") Long userId, Model model) {
         List<Question> questionList = questionService.getQuestionAskedByUser(userId);
+        model.addAttribute("questions", questionList);
+        return "question-list";
+    }
+
+    @GetMapping("/question-based-on-tag/{tagId}")
+    public String showQuestionBasedOnTag(@PathVariable("tagId") Long tagId, Model model) {
+        List<Question> questionList = questionService.getQuestionWithSpecificTag(tagId);
         model.addAttribute("questions", questionList);
         return "question-list";
     }

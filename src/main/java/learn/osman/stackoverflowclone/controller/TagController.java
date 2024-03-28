@@ -2,6 +2,7 @@ package learn.osman.stackoverflowclone.controller;
 
 import jakarta.validation.Valid;
 import learn.osman.stackoverflowclone.entity.Tag;
+import learn.osman.stackoverflowclone.service.QuestionService;
 import learn.osman.stackoverflowclone.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,16 +17,18 @@ import java.util.Map;
 @RequestMapping("/tags")
 public class TagController {
 
+    private QuestionService questionService;
     private TagService tagService;
     @Autowired
-    public TagController(TagService tagService) {
+    public TagController(QuestionService questionService, TagService tagService) {
+        this.questionService = questionService;
         this.tagService = tagService;
     }
 
     @GetMapping("/get-all-tag")
     public String showAllTags(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         List<Tag> tagList = tagService.findAllTags();
-        Map<Tag, Integer> mapTag = tagService.questionCountBasedOnTag();
+        Map<Tag, Integer> mapTag = questionService.questionCountBasedOnTag();
 
         model.addAttribute("tags", tagList);
         model.addAttribute("mapTag", mapTag);

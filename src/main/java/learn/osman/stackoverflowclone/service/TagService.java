@@ -19,8 +19,6 @@ public class TagService {
         this.questionService = questionService;
     }
 
-
-
     public Tag findTagFromTagId(Long tagId) {
         for (Tag tag : tagRepository.findAll()) {
             if (tag.getTagId().equals(tagId)) {
@@ -83,19 +81,4 @@ public class TagService {
         tagRepository.delete(currentTag);
     }
 
-    public Map<Tag, Integer> questionCountBasedOnTag() {
-
-        Map<Tag, Integer> mapTag = new HashMap<>();
-
-//        for(Tag tag: this.findAllTags()) {
-//            mapTag.put(tag, 0);
-//        }
-
-        for (Question question : questionService.getAllQuestions()) {
-            for (Tag tag : question.getTagList()) {
-                mapTag.put(tag, mapTag.getOrDefault(tag, 0) + 1);
-            }
-        }
-        return mapTag;
-    }
 }
