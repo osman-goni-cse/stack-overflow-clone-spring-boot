@@ -20,12 +20,7 @@ public class TagService {
     }
 
     public Tag findTagFromTagId(Long tagId) {
-        for (Tag tag : tagRepository.findAll()) {
-            if (tag.getTagId().equals(tagId)) {
-                return tag;
-            }
-        }
-        return null;
+        return tagRepository.findByTagId(tagId);
     }
 
     public List<Tag> findAllTags() {
