@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import jakarta.validation.Valid;
+import learn.osman.stackoverflowclone.entity.Question;
 import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,7 +133,7 @@ public class UserController {
 
             User foundUser = userService.getUserByEmail(keyword);
 
-            if(foundUser != null) {
+            if (foundUser != null) {
                 users.put(foundUser.getUserId(), foundUser);
             }
 
@@ -140,4 +141,5 @@ public class UserController {
         model.addAttribute("users", users);
         return "user-list";
     }
+
 }

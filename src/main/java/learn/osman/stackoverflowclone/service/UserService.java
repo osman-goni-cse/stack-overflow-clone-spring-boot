@@ -39,4 +39,5 @@ public class UserService {
         User user1 = userRepository.findByEmailAddress(user.getEmailAddress());
         return user1 != null && user1.getPassword().equals(user.getPassword());
     }
+
 }

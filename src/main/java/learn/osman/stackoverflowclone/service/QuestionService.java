@@ -95,4 +95,9 @@ public class QuestionService {
     public void deleteQuestion(Question question) {
         questionRepository.delete(question);
     }
+
+
+    public List<Question> getQuestionAskedByUser(Long userId) {
+        return questionRepository.questionAskedByUser(userId);
+    }
 }

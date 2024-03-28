@@ -7,21 +7,17 @@ import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.service.QuestionService;
 import learn.osman.stackoverflowclone.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/questions")
 public class QuestionController {
     private QuestionService questionService;
-
     private TagService tagService;
 
     @Autowired
@@ -50,7 +46,6 @@ public class QuestionController {
             System.out.println(redirectAttributes);
             return "redirect:/users/login";
         }
-
 
         List<Tag> tags = tagService.findAllTags();
 
@@ -112,5 +107,12 @@ public class QuestionController {
         questionService.addQuestion(question);
 
         return "redirect:/questions/get-all-question";
+    }
+
+    @GetMapping("/asked-question-by-user/{userId}")
+    public String showQuestionAskedByUser(@PathVariable("userId") Long userId, Model model) {
+        List<Question> questionList = questionService.getQuestionAskedByUser(userId);
+        model.addAttribute("questions", questionList);
+        return "question-list";
     }
 }
