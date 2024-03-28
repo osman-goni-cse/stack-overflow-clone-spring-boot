@@ -123,7 +123,10 @@
                 <p class="card-text" th:text="${tag.tagDetails}"></p>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <small class="text-muted" th:text="${mapTag.getOrDefault(tag, 0)} + ' questions'">
+                <small class="text-muted">
+                    <a th:href="@{/questions/question-based-on-tag/{tagId}(tagId=${tag.getTagId()})}" th:text="${mapTag.getOrDefault(tag, 0)} + ' questions'">
+
+                    </a>
                 </small>
                 <small class="text-muted">
                     156 asked today, 1581 this week
