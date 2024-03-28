@@ -27,6 +27,10 @@ public class TagService {
         return tagRepository.findAll();
     }
 
+    public List<Tag> findTagsUsedByUser(Long userId) {
+        return tagRepository.tagsUsedByUser(userId);
+    }
+
     public void addNewTag(Tag tagObj) {
         tagRepository.save(tagObj);
     }

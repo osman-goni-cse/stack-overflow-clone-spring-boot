@@ -39,6 +39,9 @@
           <small class="text-muted">
               <a th:href="@{/questions/asked-question-by-user/{userId}(userId=${user.getKey()})}">Questions</a>
           </small>
+            <small class="text-muted">
+                <a th:href="@{/tags/used-by-user/{userId}(userId=${user.getKey()})}">Tags</a>
+            </small>
         </div>
       </div>
     </div>

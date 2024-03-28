@@ -70,4 +70,11 @@ public class QuestionService {
 
         return mapTag;
     }
+
+//    public Map<Tag, Integer> questionCountByTagAndUser() {
+//        Map<Tag, Integer> mapTag = new HashMap<>();
+//        for(Tag tag: tagService.findTagsUsedByUser(userId)) {
+//            mapTag.put(tag, questionRepository.countQuestionBasedOnTag(tag.))
+//        }
+//    }
 }

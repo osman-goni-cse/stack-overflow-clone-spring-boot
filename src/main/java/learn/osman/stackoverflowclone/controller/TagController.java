@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ public class TagController {
 
     private QuestionService questionService;
     private TagService tagService;
+
     @Autowired
     public TagController(QuestionService questionService, TagService tagService) {
         this.questionService = questionService;
@@ -44,7 +46,7 @@ public class TagController {
     @PostMapping("/create-tag")
     public String createTag(@ModelAttribute("tagObj") @Valid Tag tagObj, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "create-tag-form";
         }
         tagService.addNewTag(tagObj);
@@ -62,8 +64,15 @@ public class TagController {
     }
 
     @GetMapping("/delete-tag/{tagId}")
-    public String deleteTag(@PathVariable("tagId") Long tagId, @ModelAttribute("tagObj") Tag tagObj, Model model) {
+    public String deleteTag(@PathVariable("tagId") Long tagId, @ModelAttribute("tagObj") Tag tagObj) {
         tagService.deleteTag(tagId);
         return "redirect:/tags/get-all-tag";
+    }
+
+    @GetMapping("/used-by-user/{userId}")
+    public String showTagsUsedByUser(@ModelAttribute("tagObj") Tag tagObj, @PathVariable("userId") Long userId, Model model) {
+        List<Tag> tagList = tagService.findTagsUsedByUser(userId);
+        model.addAttribute("tags", tagList);
+        return "tags-list-page-in-user-profile";
     }
 }

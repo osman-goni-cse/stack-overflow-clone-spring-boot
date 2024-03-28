@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<body layout:fragment="body">
+
+<div class="row row-cols-1 row-cols-md-3 g-4 my-3">
+    <div class="col" th:each="tag: ${tags}">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title d-inline-block bg-primary text-white p-2 rounded"
+                        th:text="${tag.tagName}"></h5>
+
+                </div>
+                <p class="card-text" th:text="${tag.tagDetails}"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
