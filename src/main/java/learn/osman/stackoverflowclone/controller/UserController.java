@@ -123,18 +123,15 @@ public class UserController {
 
     @GetMapping("/search")
     public String searchUsersByNameOrEmail(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
-//        Map<Long, User> users = userService.getAllUser();
+
         Map<Long, User> users = new HashMap<>();
-//
+
         if (keyword != null && !keyword.isEmpty()) {
-//            users = users.entrySet().stream()
-//                    .filter(entry -> entry.getValue().getDisplayName().contains(keyword) || entry.getValue().getEmailAddress().contains(keyword))
-//                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-            User foundUser = userService.getUserByEmail(keyword);
+            List<User> foundUsers = userService.getUsersByNameOrEmail(keyword);
 
-            if (foundUser != null) {
-                users.put(foundUser.getUserId(), foundUser);
+            for (User user : foundUsers) {
+                users.put(user.getUserId(), user);
             }
 
         }

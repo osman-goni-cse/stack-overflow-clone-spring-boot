@@ -31,6 +31,10 @@ public class UserService {
         return userRepository.findByEmailAddress(email);
     }
 
+    public List<User> getUsersByNameOrEmail(String keyword) {
+        return userRepository.searchUsersByNameOrEmail(keyword);
+    }
+
     public void registerUser(User user) {
         userRepository.save(user);
     }

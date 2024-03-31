@@ -7,9 +7,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
+//@Repository
+//public interface UserRepository extends JpaRepository<User, Long> {
+//
+//    @Query("SELECT u FROM UserEntity u where lower(u.emailAddress) = lower(:email)")
+//    User findByEmailAddress(@Param("email") String emailAddress);
+//
+//}
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
     @Query("SELECT u FROM UserEntity u where lower(u.emailAddress) = lower(:email)")
     User findByEmailAddress(@Param("email") String emailAddress);
