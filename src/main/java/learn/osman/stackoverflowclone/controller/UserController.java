@@ -128,12 +128,12 @@ public class UserController {
 
         if (keyword != null && !keyword.isEmpty()) {
 
-            List<User> foundUsers = userService.getUsersByNameOrEmail(keyword);
-
+//            Shows result using Criteria Query
+//            List<User> foundUsers = userService.getUsersByNameOrEmail(keyword);
+            List<User> foundUsers = userService.filterUsersByNameOrEmail(keyword); /* using JPA Specification */
             for (User user : foundUsers) {
                 users.put(user.getUserId(), user);
             }
-
         }
         model.addAttribute("users", users);
         return "user-list";

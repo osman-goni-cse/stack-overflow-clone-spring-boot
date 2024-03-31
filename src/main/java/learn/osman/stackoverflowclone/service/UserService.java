@@ -3,10 +3,14 @@ package learn.osman.stackoverflowclone.service;
 import learn.osman.stackoverflowclone.entity.User;
 import learn.osman.stackoverflowclone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static learn.osman.stackoverflowclone.specifications.UserSpecification.hasDisplayName;
+import static learn.osman.stackoverflowclone.specifications.UserSpecification.hasEmailAddress;
 
 @Service
 public class UserService {
@@ -33,6 +37,10 @@ public class UserService {
 
     public List<User> getUsersByNameOrEmail(String keyword) {
         return userRepository.searchUsersByNameOrEmail(keyword);
+    }
+
+    public List<User> filterUsersByNameOrEmail(String keyword) {
+        return userRepository.findAll(Specification.where(hasDisplayName(keyword)).or(hasEmailAddress(keyword)));
     }
 
     public void registerUser(User user) {
