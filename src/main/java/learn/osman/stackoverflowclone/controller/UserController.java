@@ -139,4 +139,15 @@ public class UserController {
         return "user-list";
     }
 
+    @GetMapping("/users-with-specific-tag/{tagId}")
+    public String retrieveUsersBySpecificTag(@PathVariable(name = "tagId") Long tagId, Model model) {
+        Map<Long, User> users = new HashMap<>();
+        List<User> foundUsers = userService.filterUsersByTag(tagId);
+        for (User user : foundUsers) {
+            users.put(user.getUserId(), user);
+        }
+
+        model.addAttribute("users", users);
+        return "user-list";
+    }
 }

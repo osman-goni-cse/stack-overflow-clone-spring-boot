@@ -129,7 +129,7 @@
                     </a>
                 </small>
                 <small class="text-muted">
-                    156 asked today, 1581 this week
+                    <a th:href="@{/users/users-with-specific-tag/{tagId}(tagId=${tag.getTagId()})}" th:text=" 'Used By ' + ${mapUserCount.getOrDefault(tag.getTagId(), 0)} + ' users'"></a>
                 </small>
             </div>
         </div>

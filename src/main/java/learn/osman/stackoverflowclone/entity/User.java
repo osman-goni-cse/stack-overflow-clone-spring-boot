@@ -15,6 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "UserEntity") // user is a reserved keyword in PostgreSQL
+@NamedNativeQuery(
+        name = "User.filterUsersByTag",
+        query = "SELECT DISTINCT u.* "+
+                "FROM user_entity u " +
+                "INNER JOIN question q ON u.user_id = q.user_entity_user_id " +
+                "INNER JOIN questions_tags qt ON q.question_id = qt.question_id " +
+                "INNER JOIN tag t ON qt.tag_id = t.tag_id " +
+                "WHERE t.tag_id =:tagId",
+        resultClass = User.class
+)
 public class User {
     @Id
     @GeneratedValue

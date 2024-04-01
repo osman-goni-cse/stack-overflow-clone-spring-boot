@@ -52,4 +52,11 @@ public class UserService {
         return user1 != null && user1.getPassword().equals(user.getPassword());
     }
 
+    public List<User> filterUsersByTag(Long tagId) {
+        return userRepository.filterUsersByTag(tagId);
+    }
+
+    public Map<Long, Long> countUsersByTag() {
+        return userRepository.countUsersByTag();
+    }
 }

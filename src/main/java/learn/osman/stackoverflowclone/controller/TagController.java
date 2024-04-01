@@ -4,13 +4,13 @@ import jakarta.validation.Valid;
 import learn.osman.stackoverflowclone.entity.Tag;
 import learn.osman.stackoverflowclone.service.QuestionService;
 import learn.osman.stackoverflowclone.service.TagService;
+import learn.osman.stackoverflowclone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,20 +20,24 @@ public class TagController {
 
     private QuestionService questionService;
     private TagService tagService;
+    private UserService userService;
 
     @Autowired
-    public TagController(QuestionService questionService, TagService tagService) {
+    public TagController(QuestionService questionService, TagService tagService, UserService userService) {
         this.questionService = questionService;
         this.tagService = tagService;
+        this.userService = userService;
     }
 
     @GetMapping("/get-all-tag")
     public String showAllTags(@ModelAttribute("tagObj") Tag tagObj, Model model) {
         List<Tag> tagList = tagService.findAllTags();
         Map<Tag, Integer> mapTag = questionService.questionCountBasedOnTag();
+        Map<Long, Long> mapUserCount = userService.countUsersByTag();
 
         model.addAttribute("tags", tagList);
         model.addAttribute("mapTag", mapTag);
+        model.addAttribute("mapUserCount", mapUserCount);
 
         return "tag-list";
     }
